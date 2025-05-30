@@ -5,5 +5,6 @@ public enum Tributacao {
     IMUNE_E_ISENTA,
     SIMPLES,
     PRESUMIDO,
-    REAL
+    REAL,
+    CONDOMINIO
 }

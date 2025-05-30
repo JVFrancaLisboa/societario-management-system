@@ -1,7 +1,7 @@
 package com.ideasystem.entities;
 
 import com.ideasystem.entities.enums.AtivEconomica;
-import com.ideasystem.entities.enums.Situacao;
+import com.ideasystem.entities.enums.StatusEmpresa;
 import com.ideasystem.entities.enums.Tipo;
 import com.ideasystem.entities.enums.Tributacao;
 import jakarta.persistence.*;
@@ -19,7 +19,10 @@ public class ClientEntity {
     private String razaoSocial;
 
     @Column(length = 40)
-    private String inscricao;
+    private String inscricaoEstadual;
+
+    @Column(length = 40)
+    private String inscricaoMunicipal;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
@@ -35,7 +38,7 @@ public class ClientEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private Situacao situacao;
+    private StatusEmpresa statusEmpresa;
 
     @Column(length = 8)
     private String cep;
@@ -68,7 +71,7 @@ public class ClientEntity {
     private String rgCnh;
 
     @Column(length = 14)
-    private String cpf;
+    private String cnpjCpf;
 
     @Column(length = 20)
     private String telefone;

@@ -1,6 +1,6 @@
 package com.ideasystem.entities.enums;
 
-public enum Situacao {
+public enum StatusEmpresa {
     ATIVA,
     INATIVA,
     SUSPENSA,
