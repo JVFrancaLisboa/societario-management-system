@@ -1,22 +1,26 @@
 package com.ideasystem.entities;
 
-import com.ideasystem.entities.enums.AtivEconomica;
-import com.ideasystem.entities.enums.StatusEmpresa;
-import com.ideasystem.entities.enums.Tipo;
-import com.ideasystem.entities.enums.Tributacao;
+import com.ideasystem.entities.enums.*;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name = "clients")
 public class ClientEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
     private String razaoSocial;
+
+    @Column(length = 14)
+    private String cnpjCpf;
 
     @Column(length = 40)
     private String inscricaoEstadual;
@@ -64,18 +68,48 @@ public class ClientEntity {
     @Column(length = 150)
     private String responsavel;
 
-    @Column(length = 150)
-    private String nomeCompleto;
+    @Column(length = 14)
+    private String cpf;
 
     @Column(length = 40)
     private String rgCnh;
 
-    @Column(length = 14)
-    private String cnpjCpf;
+    @Column(length = 20)
+    private String orgaoEmissor;
+
+    @Column(length = 2)
+    private String ufDocumento;
 
     @Column(length = 20)
     private String telefone;
 
+    @Column(length = 20)
+    private String celular;
+
     @Column(length = 200)
     private String email;
+
+    private BigDecimal valorHonorario;
+
+    private Integer vencimento; // ou LocalDate se for uma data completa
+
+    @Enumerated(EnumType.STRING)
+    private Contrato contrato;
+
+    private LocalDate dataContrato;
+
+    @Enumerated(EnumType.STRING)
+    private Servico contabilidade;
+
+    @Enumerated(EnumType.STRING)
+    private Servico fiscal;
+
+    @Enumerated(EnumType.STRING)
+    private Servico folha;
+
+    @Enumerated(EnumType.STRING)
+    private Servico financeiro;
+
+    @Column(columnDefinition = "TEXT")
+    private String observacoes;
 }
