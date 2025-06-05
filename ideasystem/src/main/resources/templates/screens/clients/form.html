@@ -27,114 +27,114 @@
 
   <body>
     <!-- Sidebar -->
-    <div th:replace="screens/sidebar :: sidebar"></div>
+    <div th:replace="~{screens/sidebar :: sidebar}"></div>
 
     <!-- Content -->
     <div class="container mt-4">
       <h4 class="mb-4">Dados da Empresa</h4>
-      <form class="row g-3">
+      <form th:action="@{register}" method="post" class="row g-3">
         <!-- Razão Social -->
         <div class="col-md-6">
           <label class="form-label">Razão Social</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.razaoSocial}" type="text" class="form-control" />
         </div>
 
         <!-- CNPJ/CPF -->
         <div class="col-md-3">
           <label class="form-label">CNPJ/CPF</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.cnpjCpf}" type="text" class="form-control" />
         </div>
 
         <!-- Inscrição Estadual -->
         <div class="col-md-3">
           <label class="form-label">Inscrição Estadual</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.inscricaoEstadual}" type="text" class="form-control" />
         </div>
 
         <!-- Inscrição Municipal -->
         <div class="col-md-3">
           <label class="form-label">Inscrição Municipal</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.inscricaoMunicipal}" type="text" class="form-control" />
         </div>
 
         <!-- Tributação -->
         <div class="col-md-3">
           <label class="form-label">Tributação</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>SELECIONE</option>
-            <option value="2">MEI</option>
-            <option value="1">IMUNE e ISENTA</option>
-            <option value="2">SIMPLES</option>
-            <option value="2">PRESUMIDO</option>
-            <option value="2">REAL</option>
-            <option value="2">CONDOMÍNIO</option>
+          <select th:field="${client.tributacao}"  class="form-select" aria-label="Default select example">
+            <option value="SEL" selected>SELECIONE</option>
+            <option value="MEI">MEI</option>
+            <option value="IMUNE_E_ISENTA">IMUNE e ISENTA</option>
+            <option value="SIMPLES">SIMPLES</option>
+            <option value="PRESUMIDO">PRESUMIDO</option>
+            <option value="REAL">REAL</option>
+            <option value="CONDOMINIO">CONDOMÍNIO</option>
           </select>
         </div>
 
         <!-- Tipo -->
         <div class="col-md-3">
           <label for="disabledSelect" class="form-label">Tipo:</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>SELECIONE</option>
-            <option value="2">MEI</option>
-            <option value="1">IMUNE e ISENTA</option>
-            <option value="2">GERAL</option>
+          <select th:field="${client.tipo}" class="form-select" aria-label="Default select example">
+            <option value="SEL" selected>SELECIONE</option>
+            <option value="MEI">MEI</option>
+            <option value="IMUNE_E_ISENTA">IMUNE e ISENTA</option>
+            <option value="GERAL">GERAL</option>
           </select>
         </div>
 
         <!-- Atividade Econômica -->
         <div class="col-md-3">
           <label class="form-label">Atividade Econômica</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>SELECIONE</option>
-            <option value="2">COMÉRCIO</option>
-            <option value="1">SERVIÇOS</option>
-            <option value="2">SER/CORMERCIO</option>
-            <option value="2">3° SETOR</option>
-            <option value="2">INDUSTRIA</option>
+          <select th:field="${client.atividadeEconomica}" class="form-select" aria-label="Default select example">
+            <option value="SEL" selected>SELECIONE</option>
+            <option value="COMERCIO">COMÉRCIO</option>
+            <option value="SERVICOS">SERVIÇOS</option>
+            <option value="SER_COMERCIO">SER/CORMERCIO</option>
+            <option value="TERCEIRO_SETOR">3° SETOR</option>
+            <option value="INDUSTRIA">INDUSTRIA</option>
           </select>
         </div>
 
         <!-- CEP -->
         <div class="col-md-3">
           <label class="form-label">CEP</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.cep}" type="text" class="form-control" />
         </div>
 
         <!-- Logradouro -->
         <div class="col-md-6">
           <label class="form-label">Logradouro</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.logradouro}" type="text" class="form-control" />
         </div>
 
         <!-- Número -->
         <div class="col-md-2">
           <label class="form-label">Número</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.numero}" type="text" class="form-control" />
         </div>
 
         <!-- Complemento -->
         <div class="col-md-4">
           <label class="form-label">Complemento</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.complemento}" type="text" class="form-control" />
         </div>
 
         <!-- Bairro -->
         <div class="col-md-4">
           <label class="form-label">Bairro</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.bairro}" type="text" class="form-control" />
         </div>
 
         <!-- Cidade -->
         <div class="col-md-3">
           <label class="form-label">Cidade</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.cidade}" type="text" class="form-control" />
         </div>
 
         <!-- UF -->
         <div class="col-md-1">
           <label class="form-label">UF</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.uf}" type="text" class="form-control" />
         </div>
 
         <hr class="mt-4" />
@@ -144,49 +144,49 @@
         <!-- Responsável -->
         <div class="col-md-6">
           <label class="form-label">Responsável</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.responsavel}" type="text" class="form-control" />
         </div>
 
         <!-- CPF -->
         <div class="col-md-3">
           <label class="form-label">CPF</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.cpf}" type="text" class="form-control" />
         </div>
 
         <!-- RG/CNH -->
         <div class="col-md-3">
           <label class="form-label">RG/CNH</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.rgCnh}" type="text" class="form-control" />
         </div>
 
         <!-- Órgão Emissor -->
         <div class="col-md-2">
           <label class="form-label">Órgão Emissor</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.orgaoEmissor}" type="text" class="form-control" />
         </div>
 
         <!-- UF Emissor -->
         <div class="col-md-1">
           <label class="form-label">UF</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.ufDocumento}" type="text" class="form-control" />
         </div>
 
         <!-- Telefone -->
         <div class="col-md-3">
           <label class="form-label">Telefone</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.telefone}" type="text" class="form-control" />
         </div>
 
         <!-- Celular -->
         <div class="col-md-3">
           <label class="form-label">Celular</label>
-          <input type="text" class="form-control" />
+          <input th:field="${client.celular}" type="text" class="form-control" />
         </div>
 
         <!-- E-mail -->
         <div class="col-md-6">
           <label class="form-label">E-mail</label>
-          <input type="email" class="form-control" />
+          <input th:field="${client.email}" type="email" class="form-control" />
         </div>
 
         <hr class="mt-4" />
@@ -194,14 +194,14 @@
         <!-- Status da Empresa, Cobrança, Contrato, Responsabilidades -->
         <div class="col-md-3">
           <label class="form-label">Status da Empresa</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>ATIVA</option>
-            <option value="2">INATIVA</option>
-            <option value="1">SUSPENSA</option>
-            <option value="2">EVENTUAL</option>
-            <option value="2">BAIXADA</option>
-            <option value="2">TRANSFERIDA</option>
-            <option value="2">PARALISADA</option>
+          <select th:field="${client.statusEmpresa}" class="form-select" aria-label="Default select example">
+            <option value="ATIVA" selected>ATIVA</option>
+            <option value="INATIVA">INATIVA</option>
+            <option value="SUSPENSA">SUSPENSA</option>
+            <option value="EVENTUAL">EVENTUAL</option>
+            <option value="BAIXADA">BAIXADA</option>
+            <option value="TRANSFERIDA">TRANSFERIDA</option>
+            <option value="PARALISADA">PARALISADA</option>
           </select>
         </div>
 
@@ -211,6 +211,7 @@
           <div class="input-group mb-3">
             <span class="input-group-text">R$</span>
             <input
+              th:field="${client.valorHonorario}"
               type="text"
               class="form-control"
               aria-label="Dollar amount (with dot and two decimal places)"
@@ -221,17 +222,17 @@
         <!-- VENCIMETNO -->
         <div class="col-md-2">
           <label class="form-label">Vencimento</label>
-          <input type="number" max="30" min="1" class="form-control" />
+          <input th:field="${client.vencimento}" type="number" max="30" min="1" class="form-control" />
         </div>
 
         <!-- CONTRATO -->
         <div class="col-md-3">
           <label class="form-label">Contrato</label>
-          <select class="form-select" aria-label="Default select example">
-            <option selected>SELECIONE</option>
-            <option value="2">ASSINADO</option>
-            <option value="2">PENDENTE</option>
-            <option value="2">SEM CONTRATO</option>
+          <select th:field="${client.contrato}" class="form-select" aria-label="Default select example">
+            <option value="SEL" selected>SELECIONE</option>
+            <option value="ASSINADO">ASSINADO</option>
+            <option value="PENDENTE">PENDENTE</option>
+            <option value="SEM_CONTRATO">SEM CONTRATO</option>
           </select>
         </div>
 
@@ -241,34 +242,50 @@
           <div class="d-flex flex-wrap gap-2">
             <span class="badge bg-primary"
               >Contábil:
-              <select class="form-select bg-primary text-white" aria-label="Default select example">
-                <option selected>SELECIONE</option>
-                <option value="2">SIM</option>
-                <option value="2">NÃO</option>
+              <select
+                th:field="${client.contabilidade}"
+                class="form-select bg-primary text-white"
+                aria-label="Default select example"
+              >
+                <option value="SEL" selected>SELECIONE</option>
+                <option value="SIM">SIM</option>
+                <option value="NAO">NÃO</option>
               </select>
             </span>
             <span class="badge bg-primary"
               >Fiscal:
-              <select class="form-select bg-primary text-white" aria-label="Default select example">
-                <option selected>SELECIONE</option>
-                <option value="2">SIM</option>
-                <option value="2">NÃO</option>
+              <select
+                th:field="${client.fiscal}"
+                class="form-select bg-primary text-white"
+                aria-label="Default select example"
+              >
+                <option value="SEL" selected>SELECIONE</option>
+                <option value="SIM">SIM</option>
+                <option value="NAO">NÃO</option>
               </select>
             </span>
             <span class="badge bg-primary"
               >Folha:
-              <select class="form-select bg-primary text-white" aria-label="Default select example">
-                <option selected>SELECIONE</option>
-                <option value="2">SIM</option>
-                <option value="2">NÃO</option>
+              <select
+                th:field="${client.folha}"
+                class="form-select bg-primary text-white"
+                aria-label="Default select example"
+              >
+                <option value="SEL" selected>SELECIONE</option>
+                <option value="SIM">SIM</option>
+                <option value="NAO">NÃO</option>
               </select>
             </span>
             <span class="badge bg-primary"
               >Financeiro:
-              <select class="form-select bg-primary text-white" aria-label="Default select example">
-                <option selected>SELECIONE</option>
-                <option value="2">SIM</option>
-                <option value="2">NÃO</option>
+              <select
+                th:field="${client.financeiro}"
+                class="form-select bg-primary text-white"
+                aria-label="Default select example"
+              >
+                <option value="SEL" selected>SELECIONE</option>
+                <option value="SIM">SIM</option>
+                <option value="NAO">NÃO</option>
               </select>
             </span>
           </div>
@@ -277,13 +294,13 @@
         <!-- Data do contrato -->
         <div class="col-md-3">
           <label class="form-label">Data do Contrato</label>
-          <input type="date" class="form-control bg-success text-white" />
+          <input th:field="${client.dataContrato}" type="date" class="form-control bg-success text-white" />
         </div>
 
         <!-- Observações -->
         <div class="col-md-9">
           <label class="form-label">Observações</label>
-          <textarea class="form-control" rows="2"></textarea>
+          <textarea th:field="${client.observacoes}" class="form-control" rows="2"></textarea>
         </div>
 
         <div class="col-12 text-end">

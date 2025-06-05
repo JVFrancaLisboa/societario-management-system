@@ -1,10 +1,13 @@
 package com.ideasystem.controllers;
 
+import com.ideasystem.entities.ClientEntity;
 import com.ideasystem.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -21,7 +24,14 @@ public class ClientController {
     }
 
     @GetMapping("/form")
-    public String clientForm(){
+    public String clientForm(Model model){
+        model.addAttribute("client", new ClientEntity());
         return "screens/clients/form";
+    }
+
+    @PostMapping("/register")
+    public String registration(@ModelAttribute ClientEntity client){
+        clientService.saveCliente(client);
+        return "screens/clients/all";
     }
 }

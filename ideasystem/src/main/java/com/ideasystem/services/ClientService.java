@@ -20,4 +20,9 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
+    public ClientEntity saveCliente(ClientEntity client){
+        client.setId(null);
+        return clientRepository.save(client);
+    }
+
 }
