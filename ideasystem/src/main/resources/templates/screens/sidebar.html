@@ -1,82 +1,297 @@
-<div class="sidebar" th:fragment="sidebar">
-  <nav class="navbar navbar-dark bg-success fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- Sidebar Fragment - Thymeleaf -->
+<div th:fragment="sidebar">
+  <!-- Botão de Toggle fixo no canto superior esquerdo -->
+  <button 
+    id="sidebar-toggle" 
+    class="btn btn-success position-fixed" 
+    style="top: 15px; left: 15px; z-index: 1050; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);"
+    type="button"
+    aria-label="Toggle Sidebar"
+  >
+    <i class="fas fa-bars" style="font-size: 18px;"></i>
+  </button>
+
+  <!-- Overlay para fechar sidebar em dispositivos móveis -->
+  <div id="sidebar-overlay" class="position-fixed w-100 h-100" style="top: 0; left: 0; background: rgba(0,0,0,0.5); z-index: 1040; display: none;"></div>
+
+  <!-- Sidebar -->
+  <nav 
+    id="sidebar" 
+    class="position-fixed bg-white border-end shadow-sm" 
+    style="top: 0; left: -280px; width: 280px; height: 100vh; z-index: 1045; transition: left 0.3s ease-in-out; overflow-y: auto;"
+  >
+    <!-- Header do Sidebar -->
+    <div class="bg-success text-white p-3 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
         <img
           th:src="@{/images/idea-cont.png}"
           alt="idea-cont logo"
-          width="30"
-          height="24"
-          class="d-inline-block align-text-top"
+          width="40"
+          height="32"
+          class="me-2"
         />
-        Idea System
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasSuccessNavbar"
-        aria-controls="offcanvasSuccessNavbar"
-        aria-label="Toggle navigation"
+        <h5 class="mb-0 fw-bold">Idea System</h5>
+      </div>
+      <button 
+        id="sidebar-close" 
+        class="btn btn-link text-white p-0" 
+        style="font-size: 20px; text-decoration: none;"
+        aria-label="Fechar Sidebar"
       >
-        <span class="navbar-toggler-icon"></span>
+        <i class="fas fa-times"></i>
       </button>
-      <div
-        class="offcanvas offcanvas-end text-bg-success"
-        tabindex="-1"
-        id="offcanvasSuccessNavbar"
-        aria-labelledby="offcanvasSuccessNavbarLabel"
-      >
-        <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasSuccessNavbarLabel">
-            Success Offcanvas
-          </h5>
-          <button
-            type="button"
-            class="btn-close btn-close-white"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle text-white"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form class="d-flex mt-3" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
+    </div>
+
+    <!-- Menu de Navegação -->
+    <div class="p-3">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item mb-2">
+          <a class="nav-link active d-flex align-items-center py-3 px-3 rounded" href="#" style="background-color: #f8f9fa; color: #198754;">
+            <img
+              th:src="@{/images/icons/home.png}"
+              alt="Home"
+              width="20"
+              height="16"
+              class="me-3"
             />
-            <button class="btn btn-light" type="submit">Search</button>
-          </form>
-        </div>
+            <span class="fw-bold">Home</span>
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link d-flex align-items-center py-3 px-3 rounded text-dark" th:href="@{/clients}" style="transition: all 0.2s;">
+            <img
+              th:src="@{/images/icons/cash-register.png}"
+              alt="Financeiro"
+              width="20"
+              height="16"
+              class="me-3"
+            />
+            <span>Financeiro</span>
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link d-flex align-items-center py-3 px-3 rounded text-dark" href="#" style="transition: all 0.2s;">
+            <img
+              th:src="@{/images/icons/stakeholder.png}"
+              alt="Administrativo"
+              width="20"
+              height="16"
+              class="me-3"
+            />
+            <span>Administrativo</span>
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link d-flex align-items-center py-3 px-3 rounded text-dark" href="#" style="transition: all 0.2s;">
+            <img
+              th:src="@{/images/icons/handshake.png}"
+              alt="Societário"
+              width="20"
+              height="16"
+              class="me-3"
+            />
+            <span>Societário</span>
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link d-flex align-items-center py-3 px-3 rounded text-dark" href="#" style="transition: all 0.2s;">
+            <img
+              th:src="@{/images/icons/tax.png}"
+              alt="Fiscal"
+              width="20"
+              height="16"
+              class="me-3"
+            />
+            <span>Fiscal</span>
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link d-flex align-items-center py-3 px-3 rounded text-dark" href="#" style="transition: all 0.2s;">
+            <img
+              th:src="@{/images/icons/bank.png}"
+              alt="Contábil"
+              width="20"
+              height="16"
+              class="me-3"
+            />
+            <span class="fw-bold">Contábil</span>
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link d-flex align-items-center py-3 px-3 rounded text-dark" href="#" style="transition: all 0.2s;">
+            <img
+              th:src="@{/images/icons/date.png}"
+              alt="Fopag"
+              width="20"
+              height="16"
+              class="me-3"
+            />
+            <span>Fopag</span>
+          </a>
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link d-flex align-items-center py-3 px-3 rounded text-dark" href="#" style="transition: all 0.2s;">
+            <img
+              th:src="@{/images/icons/holy.png}"
+              alt="Obrigações"
+              width="20"
+              height="16"
+              class="me-3"
+            />
+            <span>Obrigações</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Barra de Pesquisa -->
+      <div class="mt-4 pt-3 border-top">
+        <form class="d-flex" role="search">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="search"
+              placeholder="Pesquisar..."
+              aria-label="Pesquisar"
+              style="border-right: none;"
+            />
+            <button class="btn btn-outline-success" type="submit" style="border-left: none;">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </nav>
+
+  <!-- JavaScript para controle do sidebar -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebar = document.getElementById('sidebar');
+      const sidebarToggle = document.getElementById('sidebar-toggle');
+      const sidebarClose = document.getElementById('sidebar-close');
+      const sidebarOverlay = document.getElementById('sidebar-overlay');
+      const mainContent = document.getElementById('main-content');
+      
+      let sidebarOpen = false;
+
+      // Função para abrir sidebar
+      function openSidebar() {
+        sidebar.style.left = '0px';
+        sidebarOverlay.style.display = 'block';
+        sidebarOpen = true;
+        
+        // Ajustar margem do conteúdo principal em telas grandes
+        if (window.innerWidth >= 992 && mainContent) {
+          mainContent.style.marginLeft = '280px';
+          mainContent.style.transition = 'margin-left 0.3s ease-in-out';
+        }
+        
+        // Adicionar classe para indicar sidebar aberto
+        document.body.classList.add('sidebar-open');
+      }
+
+      // Função para fechar sidebar
+      function closeSidebar() {
+        sidebar.style.left = '-280px';
+        sidebarOverlay.style.display = 'none';
+        sidebarOpen = false;
+        
+        // Remover margem do conteúdo principal
+        if (mainContent) {
+          mainContent.style.marginLeft = '0px';
+        }
+        
+        // Remover classe
+        document.body.classList.remove('sidebar-open');
+      }
+
+      // Event listeners
+      sidebarToggle.addEventListener('click', function() {
+        if (sidebarOpen) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+
+      sidebarClose.addEventListener('click', closeSidebar);
+      sidebarOverlay.addEventListener('click', closeSidebar);
+
+      // Fechar sidebar ao pressionar ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && sidebarOpen) {
+          closeSidebar();
+        }
+      });
+
+      // Responsividade - fechar sidebar automaticamente em telas pequenas ao redimensionar
+      window.addEventListener('resize', function() {
+        if (window.innerWidth < 992 && sidebarOpen) {
+          if (mainContent) {
+            mainContent.style.marginLeft = '0px';
+          }
+        } else if (window.innerWidth >= 992 && sidebarOpen && mainContent) {
+          mainContent.style.marginLeft = '280px';
+        }
+      });
+
+      // Hover effects para os links do menu
+      const navLinks = sidebar.querySelectorAll('.nav-link:not(.active)');
+      navLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+          this.style.backgroundColor = '#f8f9fa';
+          this.style.color = '#198754';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+          this.style.backgroundColor = 'transparent';
+          this.style.color = '#212529';
+        });
+      });
+    });
+  </script>
+
+  <!-- CSS adicional para melhorar a aparência -->
+  <style>
+    /* Garantir que o Font Awesome esteja disponível */
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+    
+    /* Estilo para o botão de toggle */
+    #sidebar-toggle:hover {
+      background-color: #157347 !important;
+      transform: scale(1.05);
+    }
+    
+    /* Estilo para a barra de rolagem do sidebar */
+    #sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    #sidebar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    
+    #sidebar::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+    }
+    
+    #sidebar::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+    
+    /* Animação suave para o conteúdo principal */
+    #main-content {
+      transition: margin-left 0.3s ease-in-out;
+    }
+    
+    /* Responsividade para dispositivos móveis */
+    @media (max-width: 991.98px) {
+      #main-content {
+        margin-left: 0 !important;
+      }
+    }
+  </style>
 </div>
+

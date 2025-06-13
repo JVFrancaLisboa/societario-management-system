@@ -29,6 +29,11 @@ public class ClientController {
         return "screens/clients/form";
     }
 
+    @GetMapping("/cadastro")
+    public String cadastro(){
+        return "screens/clients/cadastro";
+    }
+
     @PostMapping("/register")
     public String registration(@ModelAttribute ClientEntity client){
         clientService.saveCliente(client);
