@@ -28,35 +28,35 @@
         <div class="row">
             <div class="col-12">
                 <h2 class="text-center mb-4">Cadastro de Empresa</h2>
-                
-                <form>
+
+                <form th:action="@{/clients/register}" method="post">
                     <!-- Dados da Empresa -->
                     <div class="form-section">
                         <h4 class="section-title">Dados da Empresa</h4>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-8">
                                 <label for="razaoSocial" class="form-label">Razão Social:</label>
-                                <input type="text" class="form-control" id="razaoSocial" name="razaoSocial">
+                                <input th:field="${client.razaoSocial}" type="text" class="form-control" id="razaoSocial" name="razaoSocial">
                             </div>
                             <div class="col-md-4">
                                 <label for="cnpjCpf" class="form-label">CNPJ/CPF:</label>
-                                <input type="text" class="form-control" id="cnpjCpf" name="cnpjCpf">
+                                <input th:field="${client.cnpjCpf}" type="text" class="form-control" id="cnpjCpf" name="cnpjCpf">
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="inscricaoEstadual" class="form-label">Inscrição Estadual:</label>
-                                <input type="text" class="form-control" id="inscricaoEstadual" name="inscricaoEstadual">
+                                <input th:field="${client.inscricaoEstadual}" type="text" class="form-control" id="inscricaoEstadual" name="inscricaoEstadual">
                             </div>
                             <div class="col-md-4">
                                 <label for="inscricaoMunicipal" class="form-label">Inscrição Municipal:</label>
-                                <input type="text" class="form-control" id="inscricaoMunicipal" name="inscricaoMunicipal">
+                                <input th:field="${client.inscricaoMunicipal}" type="text" class="form-control" id="inscricaoMunicipal" name="inscricaoMunicipal">
                             </div>
                             <div class="col-md-4">
                                 <label for="tributacao" class="form-label">Tributação:</label>
-                                <select class="form-control" id="tributacao" name="tributacao">
+                                <select th:field="${client.tributacao}" class="form-control" id="tributacao" name="tributacao">
                                     <option value="">Selecione...</option>
                                     <option value="MEI">MEI</option>
                                     <option value="IMUNE E ISENTA">IMUNE E ISENTA</option>
@@ -67,18 +67,18 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="tipo" class="form-label">Tipo:</label>
-                                <select class="form-control" id="tipo" name="tipo">
+                                <select th:field="${client.tipo}" class="form-control" id="tipo" name="tipo">
                                     <option value="">Selecione...</option>
                                     <option value="GERAL">GERAL</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label for="atividadeEconomica" class="form-label">Atividade Econômica:</label>
-                                <select class="form-control" id="atividadeEconomica" name="atividadeEconomica">
+                                <select th:field="${client.atividadeEconomica}" class="form-control" id="atividadeEconomica" name="atividadeEconomica">
                                     <option value="">Selecione...</option>
                                     <option value="COMÉRCIO">COMÉRCIO</option>
                                     <option value="SERVIÇOS">SERVIÇOS</option>
@@ -88,8 +88,8 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label for="situacao" class="form-label">Situação:</label>
-                                <select class="form-control" id="situacao" name="situacao">
+                                <label for="statusEmpresa" class="form-label">Status da Empresa:</label>
+                                <select th:field="${client.statusEmpresa}" class="form-control" id="statusEmpresa" name="situacao">
                                     <option value="">Selecione...</option>
                                     <option value="ATIVA">ATIVA</option>
                                     <option value="INATIVA">INATIVA</option>
@@ -106,38 +106,38 @@
                     <!-- Endereço -->
                     <div class="form-section">
                         <h4 class="section-title">Endereço</h4>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-3">
                                 <label for="cep" class="form-label">CEP:</label>
-                                <input type="text" class="form-control" id="cep" name="cep">
+                                <input th:field="${client.cep}" type="text" class="form-control" id="cep" name="cep">
                             </div>
                             <div class="col-md-6">
                                 <label for="logradouro" class="form-label">Logradouro:</label>
-                                <input type="text" class="form-control" id="logradouro" name="logradouro">
+                                <input th:field="${client.logradouro}" type="text" class="form-control" id="logradouro" name="logradouro">
                             </div>
                             <div class="col-md-3">
                                 <label for="numero" class="form-label">Nº.:</label>
-                                <input type="text" class="form-control" id="numero" name="numero">
+                                <input th:field="${client.numero}" type="text" class="form-control" id="numero" name="numero">
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="complemento" class="form-label">Complemento:</label>
-                                <input type="text" class="form-control" id="complemento" name="complemento">
+                                <input th:field="${client.complemento}" type="text" class="form-control" id="complemento" name="complemento">
                             </div>
                             <div class="col-md-4">
                                 <label for="bairro" class="form-label">Bairro:</label>
-                                <input type="text" class="form-control" id="bairro" name="bairro">
+                                <input th:field="${client.bairro}" type="text" class="form-control" id="bairro" name="bairro">
                             </div>
                             <div class="col-md-3">
                                 <label for="cidade" class="form-label">Cidade:</label>
-                                <input type="text" class="form-control" id="cidade" name="cidade">
+                                <input th:field="${client.cidade}" type="text" class="form-control" id="cidade" name="cidade">
                             </div>
                             <div class="col-md-1">
                                 <label for="uf" class="form-label">UF:</label>
-                                <input type="text" class="form-control" id="uf" name="uf" maxlength="2">
+                                <input th:field="${client.uf}" type="text" class="form-control" id="uf" name="uf" maxlength="2">
                             </div>
                         </div>
                     </div>
@@ -145,38 +145,38 @@
                     <!-- Dados do Sócio -->
                     <div class="form-section">
                         <h4 class="section-title">Dados do Sócio</h4>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="responsavel" class="form-label">Responsável:</label>
-                                <input type="text" class="form-control" id="responsavel" name="responsavel">
+                                <input th:field="${client.responsavel}" type="text" class="form-control" id="responsavel" name="responsavel">
                             </div>
                             <div class="col-md-3">
                                 <label for="cpf" class="form-label">CPF:</label>
-                                <input type="text" class="form-control" id="cpf" name="cpf">
+                                <input th:field="${client.cpf}" type="text" class="form-control" id="cpf" name="cpf">
                             </div>
                             <div class="col-md-3">
                                 <label for="rgCnh" class="form-label">RG/CNH:</label>
-                                <input type="text" class="form-control" id="rgCnh" name="rgCnh">
+                                <input th:field="${client.rgCnh}" type="text" class="form-control" id="rgCnh" name="rgCnh">
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-3">
                                 <label for="orgaoEmissor" class="form-label">Órgão Emissor:</label>
-                                <input type="text" class="form-control" id="orgaoEmissor" name="orgaoEmissor">
+                                <input th:field="${client.orgaoEmissor}" type="text" class="form-control" id="orgaoEmissor" name="orgaoEmissor">
                             </div>
                             <div class="col-md-3">
                                 <label for="telefone" class="form-label">Telefone:</label>
-                                <input type="text" class="form-control" id="telefone" name="telefone">
+                                <input th:field="${client.telefone}" type="text" class="form-control" id="telefone" name="telefone">
                             </div>
                             <div class="col-md-3">
                                 <label for="celular" class="form-label">Celular:</label>
-                                <input type="text" class="form-control" id="celular" name="celular">
+                                <input th:field="${client.celular}" type="text" class="form-control" id="celular" name="celular">
                             </div>
                             <div class="col-md-3">
                                 <label for="email" class="form-label">E-mail:</label>
-                                <input type="email" class="form-control" id="email" name="email">
+                                <input th:field="${client.email}" type="email" class="form-control" id="email" name="email">
                             </div>
                         </div>
                     </div>
@@ -184,66 +184,90 @@
                     <!-- Serviços Contratados -->
                     <div class="form-section">
                         <h4 class="section-title">Serviços Contratados</h4>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label class="form-label">Serviços:</label>
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="contrato" name="contrato">
                                             <label class="form-check-label" for="contrato">Contrato</label>
+                                            <select id="contrato" th:field="${client.contrato}" class="form-select" aria-label="Default select example">
+                                                <option value="SEL" selected>SELECIONE</option>
+                                                <option value="ASSINADO">ASSINADO</option>
+                                                <option value="PENDENTE">PENDENTE</option>
+                                                <option value="SEM_CONTRATO">SEM CONTRATO</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="contabilidade" name="contabilidade">
                                             <label class="form-check-label" for="contabilidade">Contabilidade</label>
+                                            <select
+                                                    id="contabilidade"
+                                                    th:field="${client.contabilidade}"
+                                                    class="form-select bg-primary text-white"
+                                                    aria-label="Default select example"
+                                            >
+                                                <option value="SEL" selected>SELECIONE</option>
+                                                <option value="SIM">SIM</option>
+                                                <option value="NAO">NÃO</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="fiscal" name="fiscal">
                                             <label class="form-check-label" for="fiscal">Fiscal</label>
+                                            <select
+                                                    id="fiscal"
+                                                    th:field="${client.fiscal}"
+                                                    class="form-select bg-primary text-white"
+                                                    aria-label="Default select example"
+                                            >
+                                                <option value="SEL" selected>SELECIONE</option>
+                                                <option value="SIM">SIM</option>
+                                                <option value="NAO">NÃO</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="folha" name="folha">
                                             <label class="form-check-label" for="folha">Folha</label>
+                                            <select
+                                                    id="folha"
+                                                    th:field="${client.folha}"
+                                                    class="form-select bg-primary text-white"
+                                                    aria-label="Default select example"
+                                            >
+                                                <option value="SEL" selected>SELECIONE</option>
+                                                <option value="SIM">SIM</option>
+                                                <option value="NAO">NÃO</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="financeiro" name="financeiro">
                                             <label class="form-check-label" for="financeiro">Financeiro</label>
+                                            <select
+                                                    id="financeiro"
+                                                    th:field="${client.financeiro}"
+                                                    class="form-select bg-primary text-white"
+                                                    aria-label="Default select example"
+                                            >
+                                                <option value="SEL" selected>SELECIONE</option>
+                                                <option value="SIM">SIM</option>
+                                                <option value="NAO">NÃO</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-4">
-                                <label for="responsabilidade" class="form-label">Responsabilidade:</label>
-                                <select class="form-control" id="responsabilidade" name="responsabilidade">
-                                    <option value="">Selecione...</option>
-                                    <option value="SIM">SIM</option>
-                                    <option value="NÃO">NÃO</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
                                 <label for="dataContrato" class="form-label">Data do Contrato:</label>
-                                <input type="date" class="form-control" id="dataContrato" name="dataContrato">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="statusContrato" class="form-label">Status do Contrato:</label>
-                                <select class="form-control" id="statusContrato" name="statusContrato">
-                                    <option value="">Selecione...</option>
-                                    <option value="ASSINADO">ASSINADO</option>
-                                    <option value="PENDENTE">PENDENTE</option>
-                                    <option value="SEM CONTRATO">SEM CONTRATO</option>
-                                </select>
+                                <input th:field="${client.dataContrato}" type="date" class="form-control" id="dataContrato" name="dataContrato">
                             </div>
                         </div>
                     </div>
@@ -251,18 +275,18 @@
                     <!-- Cobrança -->
                     <div class="form-section">
                         <h4 class="section-title">Cobrança</h4>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label for="valorHonorario" class="form-label">Valor do Honorário:</label>
                                 <div class="input-group">
                                     <span class="input-group-text">R$</span>
-                                    <input type="number" class="form-control" id="valorHonorario" name="valorHonorario" step="0.01">
+                                    <input th:field="${client.valorHonorario}" type="number" class="form-control" id="valorHonorario" name="valorHonorario" step="0.01">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="vencimento" class="form-label">Vencimento:</label>
-                                <input type="date" class="form-control" id="vencimento" name="vencimento">
+                                <input th:field="${client.vencimento}" type="date" class="form-control" id="vencimento" name="vencimento">
                             </div>
                         </div>
                     </div>
@@ -270,11 +294,11 @@
                     <!-- Observações -->
                     <div class="form-section">
                         <h4 class="section-title">Observações</h4>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="observacoes" class="form-label">Observações:</label>
-                                <textarea class="form-control" id="observacoes" name="observacoes" rows="4"></textarea>
+                                <textarea th:field="${client.observacoes}" class="form-control" id="observacoes" name="observacoes" rows="4"></textarea>
                             </div>
                         </div>
                     </div>

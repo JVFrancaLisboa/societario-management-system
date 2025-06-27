@@ -30,7 +30,8 @@ public class ClientController {
     }
 
     @GetMapping("/cadastro")
-    public String cadastro(){
+    public String cadastro(Model model){
+        model.addAttribute("client", new ClientEntity());
         return "screens/clients/cadastro";
     }
 
