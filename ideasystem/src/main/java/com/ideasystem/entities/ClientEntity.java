@@ -91,7 +91,7 @@ public class ClientEntity {
 
     private BigDecimal valorHonorario;
 
-    private Integer vencimento; // ou LocalDate se for uma data completa
+    private String vencimento;
 
     @Enumerated(EnumType.STRING)
     private Contrato contrato;

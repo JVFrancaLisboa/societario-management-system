@@ -38,6 +38,6 @@ public class ClientController {
     @PostMapping("/register")
     public String registration(@ModelAttribute ClientEntity client){
         clientService.saveCliente(client);
-        return "screens/clients/all";
+        return "redirect:/clients";
     }
 }

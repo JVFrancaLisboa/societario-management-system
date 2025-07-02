@@ -59,11 +59,11 @@
                                 <select th:field="${client.tributacao}" class="form-control" id="tributacao" name="tributacao">
                                     <option value="">Selecione...</option>
                                     <option value="MEI">MEI</option>
-                                    <option value="IMUNE E ISENTA">IMUNE E ISENTA</option>
+                                    <option value="IMUNE_E_ISENTA">IMUNE E ISENTA</option>
                                     <option value="SIMPLES">SIMPLES</option>
                                     <option value="PRESUMIDO">PRESUMIDO</option>
                                     <option value="REAL">REAL</option>
-                                    <option value="CONDOMÍNIO">CONDOMÍNIO</option>
+                                    <option value="CONDOMINIO">CONDOMÍNIO</option>
                                 </select>
                             </div>
                         </div>
@@ -73,6 +73,8 @@
                                 <label for="tipo" class="form-label">Tipo:</label>
                                 <select th:field="${client.tipo}" class="form-control" id="tipo" name="tipo">
                                     <option value="">Selecione...</option>
+                                    <option value="MEI">MEI</option>
+                                    <option value="IMUNE_E_ISENTA">IMUNE e ISENTA</option>
                                     <option value="GERAL">GERAL</option>
                                 </select>
                             </div>
@@ -80,10 +82,10 @@
                                 <label for="atividadeEconomica" class="form-label">Atividade Econômica:</label>
                                 <select th:field="${client.atividadeEconomica}" class="form-control" id="atividadeEconomica" name="atividadeEconomica">
                                     <option value="">Selecione...</option>
-                                    <option value="COMÉRCIO">COMÉRCIO</option>
+                                    <option value="COMERCIO">COMÉRCIO</option>
                                     <option value="SERVIÇOS">SERVIÇOS</option>
-                                    <option value="SER/COMERCIO">SER/COMERCIO</option>
-                                    <option value="3º SETOR">3º SETOR</option>
+                                    <option value="SER_COMERCIO">SER/COMERCIO</option>
+                                    <option value="TERCEIRO_SETOR">3º SETOR</option>
                                     <option value="INDUSTRIA">INDUSTRIA</option>
                                 </select>
                             </div>
@@ -193,7 +195,7 @@
                                         <div class="form-check">
                                             <label class="form-check-label" for="contrato">Contrato</label>
                                             <select id="contrato" th:field="${client.contrato}" class="form-select" aria-label="Default select example">
-                                                <option value="SEL" selected>SELECIONE</option>
+                                                <option value="" selected>SELECIONE</option>
                                                 <option value="ASSINADO">ASSINADO</option>
                                                 <option value="PENDENTE">PENDENTE</option>
                                                 <option value="SEM_CONTRATO">SEM CONTRATO</option>
@@ -224,7 +226,7 @@
                                                     class="form-select bg-primary text-white"
                                                     aria-label="Default select example"
                                             >
-                                                <option value="SEL" selected>SELECIONE</option>
+                                                <option value="" selected>SELECIONE</option>
                                                 <option value="SIM">SIM</option>
                                                 <option value="NAO">NÃO</option>
                                             </select>
@@ -239,7 +241,7 @@
                                                     class="form-select bg-primary text-white"
                                                     aria-label="Default select example"
                                             >
-                                                <option value="SEL" selected>SELECIONE</option>
+                                                <option value="" selected>SELECIONE</option>
                                                 <option value="SIM">SIM</option>
                                                 <option value="NAO">NÃO</option>
                                             </select>
@@ -254,7 +256,7 @@
                                                     class="form-select bg-primary text-white"
                                                     aria-label="Default select example"
                                             >
-                                                <option value="SEL" selected>SELECIONE</option>
+                                                <option value="" selected>SELECIONE</option>
                                                 <option value="SIM">SIM</option>
                                                 <option value="NAO">NÃO</option>
                                             </select>
