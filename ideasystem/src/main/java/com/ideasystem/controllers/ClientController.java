@@ -23,12 +23,6 @@ public class ClientController {
         return "screens/clients/all";
     }
 
-    @GetMapping("/form")
-    public String clientForm(Model model){
-        model.addAttribute("client", new ClientEntity());
-        return "screens/clients/form";
-    }
-
     @GetMapping("/cadastro")
     public String cadastro(Model model){
         model.addAttribute("client", new ClientEntity());
