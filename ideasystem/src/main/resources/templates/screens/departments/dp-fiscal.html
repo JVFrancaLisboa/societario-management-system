@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - IDEA Cont</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8bc34a, #689f38);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            text-align: center;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar {
+            background-color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar .btn {
+            margin-bottom: 10px;
+            font-weight: 500;
+            border-radius: 8px;
+            padding: 12px 20px;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .dashboard-card {
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            color: white;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        .card-apuracoes {
+            background: linear-gradient(135deg, #4caf50, #388e3c);
+        }
+        
+        .card-declaracoes {
+            background: linear-gradient(135deg, #2196f3, #1976d2);
+        }
+        
+        .card-evolucao {
+            background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+        }
+        
+        .card-transmissoes {
+            background: linear-gradient(135deg, #e91e63, #c2185b);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-icon {
+            font-size: 1.8rem;
+            opacity: 0.8;
+        }
+        
+        .card-columns {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .card-column {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .column-header {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .column-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .monthly-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .month-item {
+            text-align: center;
+            padding: 15px 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .month-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .month-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                min-height: auto;
+                padding: 15px;
+            }
+            
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .card-columns {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .monthly-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+            
+            .column-value {
+                font-size: 2rem;
+            }
+            
+            .month-value {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .monthly-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .logo-container {
+                width: 60px;
+                height: 60px;
+                font-size: 10px;
+                margin: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-2 col-md-3 p-0">
+                <div class="sidebar">
+                    <!-- Logo -->
+                    <div class="logo-container">
+                        <div>
+                            <div style="font-size: 14px;">IDEA</div>
+                            <div style="font-size: 10px;">CONT</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Menu Lateral usando Thymeleaf fragment -->
+                    <div th:replace="~{screens/sidebar :: sidebar}"></div>
+                    
+                    <!-- Menu alternativo caso o fragment não esteja disponível -->
+                    <div th:remove="tag">
+                        <button class="btn btn-success w-100 mb-2">Microempreendedor</button>
+                        <button class="btn btn-success w-100 mb-2">Imunes e Isentas</button>
+                        <button class="btn btn-success w-100 mb-2">Simples Nacional</button>
+                        <button class="btn btn-success w-100 mb-2">Lucro Presumido</button>
+                        <button class="btn btn-success w-100 mb-2">Lucro Real</button>
+                        <button class="btn btn-success w-100 mb-2">Parcelamentos</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-lg-10 col-md-9">
+                <div class="main-content">
+                    <div class="row">
+                        <!-- Card Apurações -->
+                        <div class="col-lg-6 col-md-12">
+                            <div class="dashboard-card card-apuracoes">
+                                <div class="card-title">
+                                    APURAÇÕES
+                                    <i class="bi bi-calendar card-icon"></i>
+                                </div>
+                                <div class="card-columns">
+                                    <div class="card-column">
+                                        <div class="column-header">Simples</div>
+                                        <div class="column-value">0000</div>
+                                    </div>
+                                    <div class="card-column">
+                                        <div class="column-header">Presumido</div>
+                                        <div class="column-value">0000</div>
+                                    </div>
+                                    <div class="card-column">
+                                        <div class="column-header">Real</div>
+                                        <div class="column-value">0000</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Declarações -->
+                        <div class="col-lg-6 col-md-12">
+                            <div class="dashboard-card card-declaracoes">
+                                <div class="card-title">
+                                    DECLARAÇÕES
+                                    <i class="bi bi-calendar card-icon"></i>
+                                </div>
+                                <div class="card-columns">
+                                    <div class="card-column">
+                                        <div class="column-header">SPED Fiscal</div>
+                                        <div class="column-value">0000</div>
+                                    </div>
+                                    <div class="card-column">
+                                        <div class="column-header">EFD Contribuições</div>
+                                        <div class="column-value">0000</div>
+                                    </div>
+                                    <div class="card-column">
+                                        <div class="column-header">DCTF</div>
+                                        <div class="column-value">0000</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Card Evolução das Apurações -->
+                        <div class="col-lg-6 col-md-12">
+                            <div class="dashboard-card card-evolucao">
+                                <div class="card-title">
+                                    EVOLUÇÃO DAS APURAÇÕES
+                                    <i class="bi bi-calendar card-icon"></i>
+                                </div>
+                                <div class="monthly-grid">
+                                    <div class="month-item">
+                                        <div class="month-name">Janeiro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Fevereiro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Março</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Abril</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Maio</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Junho</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Julho</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Agosto</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Setembro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Outubro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Novembro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Dezembro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Card Transmissões das Declarações -->
+                        <div class="col-lg-6 col-md-12">
+                            <div class="dashboard-card card-transmissoes">
+                                <div class="card-title">
+                                    TRANSMISSÕES DAS DECLARAÇÕES
+                                    <i class="bi bi-calendar card-icon"></i>
+                                </div>
+                                <div class="monthly-grid">
+                                    <div class="month-item">
+                                        <div class="month-name">Janeiro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Fevereiro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Março</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Abril</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Maio</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Junho</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Julho</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Agosto</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Setembro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Outubro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Novembro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                    <div class="month-item">
+                                        <div class="month-name">Dezembro</div>
+                                        <div class="month-value">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

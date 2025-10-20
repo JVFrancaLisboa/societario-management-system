@@ -17,11 +17,6 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
-    @GetMapping("/dashboard")
-    public String dashboard(){
-        return "/screens/dashboard";
-    }
-
     @GetMapping
     public String allClients(Model model){
         model.addAttribute("clients", clientService.allClients());
