@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Table(name = "certificates")
 public class Certificate {
 
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
