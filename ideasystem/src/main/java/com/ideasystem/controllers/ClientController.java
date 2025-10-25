@@ -1,5 +1,6 @@
 package com.ideasystem.controllers;
 
+import com.ideasystem.entities.CertificateEntity;
 import com.ideasystem.entities.ClientEntity;
 import com.ideasystem.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,18 @@ public class ClientController {
     @GetMapping("/cadastro")
     public String cadastro(Model model){
         model.addAttribute("client", new ClientEntity());
-        return "screens/clients/cadastro";
+        return "screens/clients/clients-register";
     }
 
     @PostMapping("/register")
     public String registration(@ModelAttribute ClientEntity client){
         clientService.saveCliente(client);
         return "redirect:/clients";
+    }
+
+    @GetMapping("/certificado")
+    public String certificado(Model model){
+        model.addAttribute("certificado", new CertificateEntity());
+        return "screens/certificate-register";
     }
 }

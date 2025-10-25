@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @Table(name = "certificates")
-public class Certificate {
+public class CertificateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

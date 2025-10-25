@@ -1,0 +1,13 @@
+/* Um pequeno ajuste para o fundo, similar à imagem */
+body {
+    background-color: #f8f9fa;
+}
+/* Ajuste para os títulos dos cards */
+.card-title-icon {
+    font-size: 1.5rem; /* Tamanho do título */
+    font-weight: 700;
+}
+.card-icon {
+    font-size: 1.75rem; /* Tamanho do ícone */
+    opacity: 0.8;
+}
