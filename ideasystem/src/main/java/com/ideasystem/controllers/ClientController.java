@@ -39,6 +39,7 @@ public class ClientController {
     @GetMapping("/certificado")
     public String certificado(Model model){
         model.addAttribute("certificado", new CertificateEntity());
+        model.addAttribute("clients", clientService.allClients());
         return "screens/certificate-register";
     }
 }

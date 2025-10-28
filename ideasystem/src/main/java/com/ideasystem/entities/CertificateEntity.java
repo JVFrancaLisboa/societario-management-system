@@ -14,6 +14,10 @@ public class CertificateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", nullable = true)
+    private ClientEntity cliente;
+
     @Column
     private String razaoSocial;
 
