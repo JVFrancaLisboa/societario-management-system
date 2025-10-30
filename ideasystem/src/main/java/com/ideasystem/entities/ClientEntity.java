@@ -44,7 +44,7 @@ public class ClientEntity {
     @Column(length = 20)
     private StatusEmpresa statusEmpresa;
 
-    @Column(length = 8)
+    @Column(length = 9)
     private String cep;
 
     @Column(length = 150)
@@ -112,4 +112,10 @@ public class ClientEntity {
 
     @Column(columnDefinition = "TEXT")
     private String observacoes;
+
+    @Column(length = 20)
+    private String whatsapp;
+
+    @Column
+    private LocalDate dataValidadeCertificado;
 }

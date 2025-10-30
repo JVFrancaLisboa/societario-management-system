@@ -132,8 +132,8 @@
                     name="atividadeEconomica"
                   >
                     <option value="">Selecione...</option>
-                    <option value="COMERCIO">COMÉRCIO</option>
-                    <option value="SERVIÇOS">SERVIÇOS</option>
+                    <option value="COMERCiO">COMÉRCIO</option>
+                    <option value="SERVICOS">SERVIÇOS</option>
                     <option value="SER_COMERCIO">SER/COMERCIO</option>
                     <option value="TERCEIRO_SETOR">3º SETOR</option>
                     <option value="INDUSTRIA">INDUSTRIA</option>
@@ -474,6 +474,34 @@
                     class="form-control"
                     id="vencimento"
                     name="vencimento"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Certificados -->
+            <div class="form-section">
+              <h4 class="section-title">Certificados</h4>
+
+              <div class="row mb-3">
+                  <div class="col-md-3">
+                  <label for="whatsapp" class="form-label">Whatsapp:</label>
+                  <input
+                    th:field="${client.whatsapp}"
+                    type="text"
+                    class="form-control"
+                    id="whatsapp"
+                    name="whatsapp"
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="dataValidadeCertificado" class="form-label">Data:</label>
+                  <input
+                    th:field="${client.dataValidadeCertificado}"
+                    type="date"
+                    class="form-control"
+                    id="dataValidadeCertificado"
+                    name="dataValidadeCertificado"
                   />
                 </div>
               </div>
