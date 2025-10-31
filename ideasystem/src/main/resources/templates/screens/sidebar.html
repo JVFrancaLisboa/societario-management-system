@@ -107,6 +107,35 @@
           </a>
         </li>
         <li class="nav-item mb-2">
+          <a class="nav-link d-flex align-items-center py-3 px-3 rounded text-dark collapsed"
+           href="#submenu-clients" 
+           data-bs-toggle="collapse"
+           role="button"
+           aria-expanded="false"
+           aria-controls="submenu-clients"
+           style="transition: all 0.2s;">
+            <img
+              th:src="@{/images/icons/clients.png}"
+              alt="Clients"
+              width="20"
+              height="16"
+              class="me-3"
+            />
+            <span class="fw-bold flex-grow-1">Clientes</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+            </svg>
+          </a>
+          <ul class="collapse list-unstyled ps-4" id="submenu-clients">
+            <li class="nav-item">
+              <a th:href="@{/clients/cadastro}" class="nav-link text-dark rounded py-2"><i>Cadastro</i></a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-dark rounded py-2"><i>Carteira</i></a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item mb-2">
           <a class="nav-link d-flex align-items-center py-3 px-3 rounded text-dark" href="#" style="transition: all 0.2s;">
             <img
               th:src="@{/images/icons/bank.png}"
@@ -115,7 +144,7 @@
               height="16"
               class="me-3"
             />
-            <span class="fw-bold">Contábil</span>
+            <span>Contábil</span>
           </a>
         </li>
         <li class="nav-item mb-2">
@@ -291,6 +320,17 @@
       #main-content {
         margin-left: 0 !important;
       }
+    }
+
+    /* Seleciona o link <a> QUANDO ele tiver a classe .collapsed */
+    a.collapsed .bi-chevron-down {
+      /* Gira o ícone em -90 graus */
+      transform: rotate(-90deg);
+    }
+
+    /* Adiciona uma transição suave para a seta */
+    .bi-chevron-down {
+      transition: transform 0.2s ease-in-out;
     }
   </style>
 </div>
