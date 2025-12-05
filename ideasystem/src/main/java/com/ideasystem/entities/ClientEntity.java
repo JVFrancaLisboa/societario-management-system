@@ -3,6 +3,7 @@ package com.ideasystem.entities;
 import com.ideasystem.entities.enums.*;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -89,13 +90,21 @@ public class ClientEntity {
     @Column(length = 200)
     private String email;
 
+    @Column
+    @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private BigDecimal valorHonorario;
 
+    // todo: implementar conversão na camada service
+    @Transient
+    private String valorHonorarioTemp;
+
+    @Column
     private String vencimento;
 
     @Enumerated(EnumType.STRING)
     private Contrato contrato;
 
+    @Column
     private LocalDate dataContrato;
 
     @Enumerated(EnumType.STRING)
