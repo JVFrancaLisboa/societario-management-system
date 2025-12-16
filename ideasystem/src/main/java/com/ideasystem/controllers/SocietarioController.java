@@ -11,8 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SocietarioController {
 
     @GetMapping("/dash")
-    public String getView(Model model){
+    public String getDashboardView(Model model){
         //model.addAttribute("societario", new Societario());
-        return "screens/departments/dp-societario";
+        return "screens/departments/dp-societario/dash";
+    }
+
+    @GetMapping("/cadastro")
+    public String getCadastroView(Model model){
+        model.addAttribute("societario", new Societario());
+        return "screens/departments/dp-societario/cadastro";
     }
 }
