@@ -110,18 +110,33 @@
                             <label class="form-label required">Tipo</label>
                             <select class="form-select">
                                 <option selected>Selecione</option>
-                                <option value="1">Abertura</option>
-                                <option value="2">Alteração</option>
-                                <option value="3">Baixa</option>
+                                <option value="ABERTURA">Abertura</option>
+                                <option value="ALTERACAO">Alteração</option>
+                                <option value="TRANSFORMACAO">Transformação</option>
+                                <option value="BAIXA">Baixa</option>
+                                <option value="PARALIZACAO">Paralisação</option>
+                                <option value="REATIVACAO">Reativação</option>
+                                <option value="IMUNIDADE">Imunidade</option>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label required">Fase</label>
-                            <input type="text" class="form-control">
+                            <select class="form-select">
+                                <option selected>Selecione</option>
+                                <option value="VIABILIDADE">Viabilidade</option>
+                                <option value="ANALISE">Análise</option>
+                                <option value="FINALIZADO">Finalizado</option>
+                            </select>
+
                         </div>
                         <div class="col-md-4">
                             <label class="form-label required">Taxa</label>
-                            <input type="text" class="form-control">
+                            <select class="form-select">
+                                <option selected>Selecione</option>
+                                <option value="EMITIR">Emitir</option>
+                                <option value="PAGA">Paga</option>
+                                <option value="SEM_TAXA">Sem Taxa</option>
+                            </select>
                         </div>
                     </div>
 
@@ -132,7 +147,11 @@
                         </div>
                         <div class="col-md-4">
                             <label class="form-label required">Honorário</label>
-                            <input type="text" class="form-control">
+                            <select class="form-select">
+                                <option selected>Selecione</option>
+                                <option value="A_RECEBER">A Receber</option>
+                                <option value="RECEBIDO">Recebido</option>
+                            </select>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label required">Valor</label>

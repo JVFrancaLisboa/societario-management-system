@@ -1,10 +1,11 @@
 package com.ideasystem.entities;
 
 // Importa os Enums criados
-import com.ideasystem.entities.enums.TipoProcesso;
-import com.ideasystem.entities.enums.FaseProcesso;
-import com.ideasystem.entities.enums.StatusTaxa;
+import com.ideasystem.entities.enums.societario.TipoProcesso;
+import com.ideasystem.entities.enums.societario.FaseProcesso;
+import com.ideasystem.entities.enums.societario.StatusTaxa;
 
+import com.ideasystem.entities.enums.societario.Honorario;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.NumberFormat;
@@ -42,12 +43,7 @@ public class Societario {
     // Campo Taxa* (Agora um Enum)
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private StatusTaxa statusTaxa; // Nome renomeado para refletir o conteúdo Enum
-
-    // Opcional: Valor real da taxa
-    @Column
-    @NumberFormat(style = NumberFormat.Style.CURRENCY)
-    private BigDecimal valorDaTaxa;
+    private StatusTaxa statusTaxa;
 
     // Campo Contato*
     @Column(nullable = false, length = 150)
@@ -56,7 +52,7 @@ public class Societario {
     // Campo Honorário* (Valor monetário do honorário)
     @Column(nullable = false)
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
-    private BigDecimal valorHonorario;
+    private Honorario honorario;
 
     // Campo Valor* (Valor total do processo/serviço)
     @Column(nullable = false)

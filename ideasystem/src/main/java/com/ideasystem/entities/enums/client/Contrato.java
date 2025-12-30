@@ -1,4 +1,4 @@
-package com.ideasystem.entities.enums;
+package com.ideasystem.entities.enums.client;
 
 public enum Contrato {
     ASSINADO,

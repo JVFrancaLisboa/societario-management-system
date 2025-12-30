@@ -1,6 +1,6 @@
 package com.ideasystem.entities;
 
-import com.ideasystem.entities.enums.*;
+import com.ideasystem.entities.enums.client.*;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.NumberFormat;

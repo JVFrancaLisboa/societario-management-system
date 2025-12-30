@@ -1,4 +1,4 @@
-package com.ideasystem.entities.enums;
+package com.ideasystem.entities.enums.societario;
 
 public enum TipoProcesso {
     ABERTURA,
