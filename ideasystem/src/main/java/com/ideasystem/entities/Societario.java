@@ -50,17 +50,21 @@ public class Societario {
     private String contatoResponsavel;
 
     // Campo Honorário* (Valor monetário do honorário)
-    @Column(nullable = false)
-    @NumberFormat(style = NumberFormat.Style.CURRENCY)
-    private Honorario honorario;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "valor_honorario", nullable = false, length = 20)
+    private Honorario valorHonorario;
 
     // Campo Valor* (Valor total do processo/serviço)
     @Column(nullable = false)
-    @NumberFormat(style = NumberFormat.Style.CURRENCY)
+    @Transient
+    private String valorTotalTransient;
+
+    @Column(nullable = false)
+    @NumberFormat(style = NumberFormat.Style.CURRENCY, pattern = "#,##0.00")
     private BigDecimal valorTotal;
 
     // Campo Celular*
-    @Column(nullable = false, length = 20)
+    @Column(length = 20)
     private String celular;
 
     // Campo E-mail*

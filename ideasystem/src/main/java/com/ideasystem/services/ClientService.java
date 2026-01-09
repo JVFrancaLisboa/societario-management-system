@@ -12,7 +12,7 @@ import java.util.List;
 public class ClientService {
 
     @Autowired
-    ClientRepository clientRepository;
+    private ClientRepository clientRepository;
 
     public List<ClientEntity> allClients() {
 
