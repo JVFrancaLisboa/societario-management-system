@@ -1,75 +1,71 @@
 package com.ideasystem.entities;
 
-// Importa os Enums criados
-import com.ideasystem.entities.enums.societario.TipoProcesso;
-import com.ideasystem.entities.enums.societario.FaseProcesso;
-import com.ideasystem.entities.enums.societario.StatusTaxa;
-
-import com.ideasystem.entities.enums.societario.Honorario;
+import com.ideasystem.entities.enums.societario.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.NumberFormat;
 
 import java.math.BigDecimal;
 
 @Data
 @Entity
+@Table(name = "processos_societarios")
 public class Societario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // ... (Código Protocolo)
-
-    // Campo Processo*
+    @NotBlank(message = "O nome do processo é obrigatório.")
+    @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres.")
     @Column(nullable = false, length = 100)
     private String nomeProcesso;
 
-    // Campo CNPJ
-    @Column(length = 14)
+    @NotBlank(message = "O CNPJ/CPF é obrigatório.")
+    // Regex para validar os dois formatos (com pontos/traços conforme sua máscara)
+    @Pattern(regexp = "(^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$)|(^\\d{2}\\.\\d{2}\\.\\d{2}/\\d{4}-\\d{2}$)",
+            message = "Formato de documento inválido.")
+    @Column(nullable = false, length = 18)
     private String cnpjCpf;
 
-    // Campo Tipo* (Agora um Enum)
+    @NotNull(message = "O tipo do processo deve ser selecionado.")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private TipoProcesso tipo;
 
-    // Campo Fase* (Agora um Enum)
+    @NotNull(message = "A fase do processo deve ser selecionada.")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private FaseProcesso fase;
 
-    // Campo Taxa* (Agora um Enum)
+    @NotNull(message = "O status da taxa é obrigatório.")
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private StatusTaxa statusTaxa;
 
-    // Campo Contato*
+    @NotBlank(message = "O contato responsável é obrigatório.")
     @Column(nullable = false, length = 150)
     private String contatoResponsavel;
 
-    // Campo Honorário* (Valor monetário do honorário)
+    @NotNull(message = "O status do honorário é obrigatório.")
     @Enumerated(EnumType.STRING)
-    @Column(name = "valor_honorario", nullable = false, length = 20)
+    @Column(name = "status_honorario", nullable = false, length = 20)
     private Honorario valorHonorario;
 
-    // Campo Valor* (Valor total do processo/serviço)
-    @Column(nullable = false)
-    @Transient
-    private String valorTotalTransient;
-
-    @Column(nullable = false)
-    @NumberFormat(style = NumberFormat.Style.CURRENCY, pattern = "#,##0.00")
+    @NotNull(message = "O valor total é obrigatório.")
+    @DecimalMin(value = "0.01", message = "O valor deve ser maior que zero.")
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal valorTotal;
 
-    // Campo Celular*
+    @NotBlank(message = "O celular é obrigatório.")
     @Column(length = 20)
     private String celular;
 
-    // Campo E-mail*
+    @NotBlank(message = "O e-mail é obrigatório.")
+    @Email(message = "Insira um endereço de e-mail válido.")
     @Column(nullable = false, length = 200)
     private String email;
 
-    // ... (Metadados)
 }
