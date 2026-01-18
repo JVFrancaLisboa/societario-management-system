@@ -4,118 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Processo - IDEA Cont</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <link rel="stylesheet" th:href="@{/css/departments/dp-societario/cadastro.css}">
+
     <style>
-        .invalid-feedback { display: none; color: #dc3545; font-size: 0.875em; }
-        .is-invalid ~ .invalid-feedback { display: block; }
         .required::after { content: " *"; color: red; }
+        /* O Bootstrap já cuida do display das invalid-feedbacks quando o input tem .is-invalid */
     </style>
 </head>
 <body>
+
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
+
             <div class="header-cadastro mb-4 d-flex align-items-center gap-3">
                 <a th:href="@{/societario/dash}" class="btn btn-outline-secondary">
                     <i class="bi bi-arrow-left"></i> Voltar ao Dashboard
                 </a>
                 <h2 class="m-0 text-dark">Cadastro de Novo Processo</h2>
             </div>
+            
             <div class="form-card shadow-sm p-4 bg-white rounded">
+                <div th:if="${mensagemErro}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-octagon-fill me-2"></i>
+                    <span th:text="${mensagemErro}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
                 <form th:action="@{/societario/cadastro}" th:object="${societario}" method="post" novalidate>
+                    
                     <div class="row mb-3">
                         <div class="col-md-7">
                             <label for="processoName" class="form-label required">Processo</label>
-                            <input id="processoName" th:field="*{nomeProcesso}" type="text" class="form-control">
-                            <div class="invalid-feedback"></div>
+                            <input id="processoName" th:field="*{nomeProcesso}" type="text" 
+                                   class="form-control" th:errorclass="is-invalid">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('nomeProcesso')}" th:errors="*{nomeProcesso}"></div>
                         </div>
                         <div class="col-md-5">
                             <label for="cnpjCpf" class="form-label required">CNPJ/CPF</label>
-                            <input id="cnpjCpf" th:field="*{cnpjCpf}" type="text" class="form-control" placeholder="000.000.000-00">
-                            <div class="invalid-feedback"></div>
+                            <input id="cnpjCpf" th:field="*{cnpjCpf}" type="text" 
+                                   class="form-control" th:errorclass="is-invalid" placeholder="000.000.000-00">
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('cnpjCpf')}" th:errors="*{cnpjCpf}"></div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="tipo" class="form-label required">Tipo</label>
-                            <select id="tipo" th:field="*{tipo}" class="form-select">
+                            <select id="tipo" th:field="*{tipo}" class="form-select" th:errorclass="is-invalid">
                                 <option value="">Selecione</option>
-                                <option value="ABERTURA">Abertura</option>
-                                <option value="ALTERACAO">Alteração</option>
-                                <option value="TRANSFORMACAO">Transformação</option>
-                                <option value="BAIXA">Baixa</option>
+                                <option th:each="tipoOpt : ${T(com.ideasystem.entities.enums.societario.TipoProcesso).values()}" 
+                                        th:value="${tipoOpt}" th:text="${tipoOpt.descricao}"></option>
                             </select>
-                            <div class="invalid-feedback"></div>
+                            <div class="invalid-feedback" th:errors="*{tipo}"></div>
                         </div>
                         <div class="col-md-4">
                             <label for="fase" class="form-label required">Fase</label>
-                            <select id="fase" th:field="*{fase}" class="form-select">
+                            <select id="fase" th:field="*{fase}" class="form-select" th:errorclass="is-invalid">
                                 <option value="">Selecione</option>
-                                <option value="VIABILIDADE">Viabilidade</option>
-                                <option value="ANALISE">Análise</option>
-                                <option value="FINALIZADO">Finalizado</option>
+                                <option th:each="faseOpt : ${T(com.ideasystem.entities.enums.societario.FaseProcesso).values()}" 
+                                        th:value="${faseOpt}" th:text="${faseOpt.descricao}"></option>
                             </select>
-                            <div class="invalid-feedback"></div>
+                            <div class="invalid-feedback" th:errors="*{fase}"></div>
                         </div>
                         <div class="col-md-4">
                             <label for="statusTaxa" class="form-label required">Taxa</label>
-                            <select id="statusTaxa" th:field="*{statusTaxa}" class="form-select">
+                            <select id="statusTaxa" th:field="*{statusTaxa}" class="form-select" th:errorclass="is-invalid">
                                 <option value="">Selecione</option>
-                                <option value="EMITIR">Emitir</option>
-                                <option value="PAGA">Paga</option>
+                                <option th:each="taxaOpt : ${T(com.ideasystem.entities.enums.societario.StatusTaxa).values()}" 
+                                        th:value="${taxaOpt}" th:text="${taxaOpt.descricao}"></option>
                             </select>
-                            <div class="invalid-feedback"></div>
+                            <div class="invalid-feedback" th:errors="*{statusTaxa}"></div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="contatoResponsavel" class="form-label required">Contato</label>
-                            <input id="contatoResponsavel" th:field="*{contatoResponsavel}" type="text" class="form-control">
-                            <div class="invalid-feedback"></div>
+                            <input id="contatoResponsavel" th:field="*{contatoResponsavel}" type="text" 
+                                   class="form-control" th:errorclass="is-invalid">
+                            <div class="invalid-feedback" th:errors="*{contatoResponsavel}"></div>
                         </div>
                         <div class="col-md-4">
                             <label for="valorHonorario" class="form-label required">Honorário</label>
-                            <select id="valorHonorario" th:field="*{valorHonorario}" class="form-select">
+                            <select id="valorHonorario" th:field="*{valorHonorario}" class="form-select" th:errorclass="is-invalid">
                                 <option value="">Selecione</option>
-                                <option value="A_RECEBER">A Receber</option>
-                                <option value="RECEBIDO">Recebido</option>
+                                <option th:each="honOpt : ${T(com.ideasystem.entities.enums.societario.Honorario).values()}" 
+                                        th:value="${honOpt}" th:text="${honOpt.descricao}"></option>
                             </select>
-                            <div class="invalid-feedback"></div>
+                            <div class="invalid-feedback" th:errors="*{valorHonorario}"></div>
                         </div>
                         <div class="col-md-4">
                             <label for="valorTotal" class="form-label required">Valor</label>
-                            <input id="valorTotal" th:field="*{valorTotal}" type="text" class="form-control">
-                            <div class="invalid-feedback"></div>
+                            <input id="valorTotal" th:field="*{valorTotal}" type="text" 
+                                   class="form-control" th:errorclass="is-invalid" placeholder="0,00">
+                            <div class="invalid-feedback" th:errors="*{valorTotal}"></div>
                         </div>
                     </div>
+
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="celular" class="form-label required">Celular</label>
-                            <input id="celular" th:field="*{celular}" type="text" class="form-control">
-                            <div class="invalid-feedback"></div>
+                            <input id="celular" th:field="*{celular}" type="text" 
+                                   class="form-control" th:errorclass="is-invalid">
+                            <div class="invalid-feedback" th:errors="*{celular}"></div>
                         </div>
                         <div class="col-md-8">
                             <label for="email" class="form-label required">E-mail</label>
-                            <input id="email" th:field="*{email}" type="email" class="form-control">
-                            <div class="invalid-feedback"></div>
+                            <input id="email" th:field="*{email}" type="email" 
+                                   class="form-control" th:errorclass="is-invalid">
+                            <div class="invalid-feedback" th:errors="*{email}"></div>
                         </div>
                     </div>
+
                     <div class="d-flex justify-content-end mt-4">
-                        <button id="btn-salvar" type="submit" class="btn btn-success px-4">Salvar Cadastro</button>
+                        <button id="btn-salvar" type="submit" class="btn btn-success px-4">
+                            <i class="bi bi-floppy"></i> Salvar Cadastro
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@fnando/cpf@1.2.1/dist/cpf.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fnando/cnpj@1.2.1/dist/cnpj.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/cpf-cnpj-validator@1.0.3/dist/cpf-cnpj-validator.js"></script>
 <script th:src="@{/js/departments/dp-societario/cadastro.js}"></script>
+
 </body>
 </html>

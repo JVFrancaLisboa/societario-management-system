@@ -1,7 +1,16 @@
 package com.ideasystem.entities.enums.societario;
 
+import lombok.Getter;
+
+@Getter
 public enum FaseProcesso {
-    VIABILIDADE,
-    ANALISE,
-    FINALIZADO
+    VIABILIDADE("Viabilidade"),
+    ANALISE("Análise"),
+    FINALIZADO("Finalizado");
+
+    private final String descricao;
+
+    FaseProcesso(String descricao) {
+        this.descricao = descricao;
+    }
 }

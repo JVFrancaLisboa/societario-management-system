@@ -1,11 +1,20 @@
 package com.ideasystem.entities.enums.societario;
 
+import lombok.Getter;
+
+@Getter
 public enum TipoProcesso {
-    ABERTURA,
-    ALTERACAO,
-    TRANSFORMACAO,
-    BAIXA,
-    PARALIZACAO,
-    REATIVACAO,
-    IMUNIDADE
+    ABERTURA("Abertura"),
+    ALTERACAO("Alteração"),
+    TRANSFORMACAO("Transformação"),
+    BAIXA("Baixa"),
+    PARALIZACAO("Paralisação"),
+    REATIVACAO("Reativação"),
+    IMUNIDADE("Imunidade");
+
+    private final String descricao;
+
+    TipoProcesso(String descricao) {
+        this.descricao = descricao;
+    }
 }
