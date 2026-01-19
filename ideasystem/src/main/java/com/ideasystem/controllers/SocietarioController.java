@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -22,16 +19,46 @@ public class SocietarioController {
 
     @GetMapping("/dash")
     public String getDashboardView(Model model) {
+        // Dados Operacionais
+        model.addAttribute("processos", societarioService.findAll());
+
+        // Dados da Sidebar
+        model.addAttribute("countAbertura", societarioService.countAberturas());
+        model.addAttribute("countAlteracao", societarioService.countAlteracoes());
+        model.addAttribute("countBaixa", societarioService.countBaixas());
+        model.addAttribute("countFinalizados", societarioService.countFinalizados());
+
+        // Dados Financeiros Dinâmicos
+        model.addAttribute("faturamentoMensal", societarioService.getDadosFaturamentoUltimos6Meses());
+
+        // No SocietarioController.java
+        model.addAttribute("faturamentoMensal", societarioService.getDadosFaturamentoUltimos6Meses());
+        model.addAttribute("mesesLabels", societarioService.getLabelsUltimos6Meses());
+
         return "screens/departments/dp-societario/dash";
     }
 
     @GetMapping("/cadastro")
     public String getCadastroView(Model model) {
-
         if (!model.containsAttribute("societario")) {
             model.addAttribute("societario", new Societario());
         }
         return "screens/departments/dp-societario/cadastro";
+    }
+
+    /**
+     * Endpoint de Edição: Busca o processo e reutiliza a view de cadastro.
+     */
+    @GetMapping("/editar/{id}")
+    public String getEditView(@PathVariable("id") Long id, Model model, RedirectAttributes attributes) {
+        try {
+            Societario societario = societarioService.findById(id);
+            model.addAttribute("societario", societario);
+            return "screens/departments/dp-societario/cadastro";
+        } catch (Exception e) {
+            attributes.addFlashAttribute("mensagemErro", "Erro ao localizar processo: " + e.getMessage());
+            return "redirect:/societario/dash";
+        }
     }
 
     @PostMapping("/cadastro")
@@ -39,25 +66,31 @@ public class SocietarioController {
                                BindingResult result,
                                RedirectAttributes attributes) {
 
-        // 1. Verificação de Integridade (Bean Validation)
         if (result.hasErrors()) {
-            // Se houver erro (ex: CPF inválido barrado pelo Java),
-            // retornamos para a tela de cadastro sem redirecionar,
-            // mantendo os dados preenchidos e exibindo os erros.
             return "screens/departments/dp-societario/cadastro";
         }
 
-        // 2. Persistência de Dados
         try {
             societarioService.save(societario);
-            // 3. Feedback de Sucesso para o Usuário
-            attributes.addFlashAttribute("mensagemSucesso", "Processo cadastrado com sucesso!");
+            // Mensagem dinâmica: diferencia novo cadastro de atualização
+            String acao = (societario.getId() == null) ? "cadastrado" : "atualizado";
+            attributes.addFlashAttribute("mensagemSucesso", "Processo " + acao + " com sucesso!");
         } catch (Exception e) {
-            // Tratamento de exceções inesperadas do banco de dados
-            attributes.addFlashAttribute("mensagemErro", "Erro ao salvar o processo: " + e.getMessage());
+            attributes.addFlashAttribute("mensagemErro", "Erro ao processar requisição: " + e.getMessage());
             return "redirect:/societario/cadastro";
         }
 
+        return "redirect:/societario/dash";
+    }
+
+    @GetMapping("/excluir/{id}")
+    public String deleteProcesso(@PathVariable("id") Long id, RedirectAttributes attributes) {
+        try {
+            societarioService.deleteById(id);
+            attributes.addFlashAttribute("mensagemSucesso", "Processo removido com sucesso!");
+        } catch (Exception e) {
+            attributes.addFlashAttribute("mensagemErro", "Erro ao excluir: " + e.getMessage());
+        }
         return "redirect:/societario/dash";
     }
 }

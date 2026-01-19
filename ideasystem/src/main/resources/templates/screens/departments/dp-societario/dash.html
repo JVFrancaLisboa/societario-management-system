@@ -6,161 +6,219 @@
     <title>Dashboard - IDEA Cont</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <style>
-        body {
-            background-color: #f4f7f6;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        /* Sidebar Style Refinada */
-        .sidebar-card {
-            background: #fff;
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .sidebar-header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 12px 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sidebar-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 15px;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .indicator {
-            width: 12px;
-            height: 12px;
-            display: inline-block;
-            margin-right: 10px;
-            border-radius: 50%;
-        }
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .sidebar-card { background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; overflow: hidden; }
+        .sidebar-header { background-color: #4CAF50; color: white; padding: 12px 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .sidebar-item { display: flex; justify-content: space-between; padding: 8px 15px; border-bottom: 1px solid #f0f0f0; }
+        .indicator { width: 12px; height: 12px; display: inline-block; margin-right: 10px; border-radius: 50%; }
         .ind-green { background-color: #66bb6a; }
         .ind-yellow { background-color: #fdd835; }
         .ind-red { background-color: #f44336; }
-        .ind-purple { background-color: #9c27b0; }
-
-        /* Estilo dos Gráficos */
-        .chart-container {
-            background: white;
-            padding: 20px;
+        .chart-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .main-title { color: #333; font-weight: 700; margin-bottom: 20px; border-bottom: 3px solid #4CAF50; display: inline-block; }
+        
+        /* Tabela Responsiva com Scroll Controlado */
+        .table-responsive-custom { 
+            max-height: 450px; 
+            overflow-y: auto; 
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            width: 100%;
+            border: 1px solid #eee;
         }
-
-        .main-title {
-            color: #333;
-            font-weight: 700;
-            margin-bottom: 25px;
-            text-align: left;
-            border-bottom: 2px solid #4CAF50;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        .icon-circle {
-            width: 40px; height: 40px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; color: white;
-        }
+        .table thead th { position: sticky; top: 0; background: #f8f9fa; z-index: 10; border-bottom: 2px solid #dee2e6; }
     </style>
 </head>
 <body>
 
 <div class="container-fluid py-4">
+    <div th:if="${mensagemSucesso}" class="alert alert-success alert-dismissible fade show shadow-sm mb-4">
+        <i class="bi bi-check-circle-fill me-2"></i> <span th:text="${mensagemSucesso}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+
     <div class="row">
-        <div class="col-lg-3 col-md-4">
+        <div class="col-lg-3">
             <div class="sidebar-card">
-                <div class="sidebar-header"><i class="bi bi-clipboard-check"></i> Processos</div>
+                <div class="sidebar-header"><i class="bi bi-clipboard-data"></i> Status do Plantão</div>
                 <div class="p-2">
-                    <div class="sidebar-item"><span><span class="indicator ind-green"></span>Abertura</span><strong>012</strong></div>
-                    <div class="sidebar-item"><span><span class="indicator ind-yellow"></span>Alteração</span><strong>005</strong></div>
-                    <div class="sidebar-item"><span><span class="indicator ind-red"></span>Baixa</span><strong>002</strong></div>
-                    <div class="sidebar-item bg-light"><strong>Total</strong><strong>019</strong></div>
+                    <div class="sidebar-item"><span><span class="indicator ind-green"></span>Abertura</span><strong th:text="${#numbers.formatInteger(countAbertura, 3)}">000</strong></div>
+                    <div class="sidebar-item"><span><span class="indicator ind-yellow"></span>Alteração</span><strong th:text="${#numbers.formatInteger(countAlteracao, 3)}">000</strong></div>
+                    <div class="sidebar-item"><span><span class="indicator ind-red"></span>Baixa</span><strong th:text="${#numbers.formatInteger(countBaixa, 3)}">000</strong></div>
+                    <div class="sidebar-item bg-light text-success"><strong>Total Ativos</strong><strong th:text="${processos.size()}">0</strong></div>
                 </div>
             </div>
 
-            <div class="sidebar-card p-3">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <div class="text-muted small">Processos Finalizados</div>
-                        <h3 class="mb-0">045</h3>
-                    </div>
-                    <div class="icon-circle bg-success"><i class="bi bi-check-lg"></i></div>
-                </div>
+            <div class="sidebar-card p-3 text-center bg-success text-white">
+                <div class="small">Processos Finalizados</div>
+                <h2 class="mb-0 fw-bold" th:text="${#numbers.formatInteger(countFinalizados, 3)}">000</h2>
             </div>
 
-            <a th:href="@{/societario/cadastro}" class="btn btn-success w-100 py-3 mb-4 shadow-sm">
-                <i class="bi bi-plus-circle"></i> Novo Cadastro
+            <a th:href="@{/societario/cadastro}" class="btn btn-success w-100 py-3 shadow-sm fw-bold">
+                <i class="bi bi-plus-lg me-2"></i> Novo Cadastro
             </a>
         </div>
 
-        <div class="col-lg-9 col-md-8">
-            <h2 class="main-title">Área Principal do Dashboard</h2>
+        <div class="col-lg-9">
+            <h2 class="main-title">Visão Analítica e Operacional</h2>
 
             <div class="row">
-                <div class="col-12 col-xl-6">
+                <div class="col-md-6">
                     <div class="chart-container">
-                        <h5>Novos Contratos (6 Meses)</h5>
+                        <h6 class="fw-bold mb-3"><i class="bi bi-bar-chart-fill text-success"></i> Volume por Tipo</h6>
                         <div id="chartContratos"></div>
                     </div>
                 </div>
-
-                <div class="col-12 col-xl-6">
+                <div class="col-md-6">
                     <div class="chart-container">
-                        <h5>Fluxo de Caixa</h5>
+                        <h6 class="fw-bold mb-3"><i class="bi bi-graph-up text-primary"></i> Projeção Financeira</h6>
                         <div id="chartFluxo"></div>
                     </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="m-0 fw-bold text-secondary">Monitoramento Recente</h5>
+                </div>
+
+                <div class="table-responsive-custom">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Processo</th>
+                                <th>Tipo / Status</th>
+                                <th class="text-end">Valor</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="p : ${processos}">
+                                <td>
+                                    <div class="fw-bold text-dark" th:text="${p.nomeProcesso}"></div>
+                                    <small class="text-muted" th:text="${p.cnpjCpf}"></small>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border" th:text="${p.tipo.descricao}"></span>
+                                    <span class="badge" th:classappend="${p.fase.name() == 'FINALIZADO' ? 'bg-success' : 'bg-warning text-dark'}" th:text="${p.fase.descricao}"></span>
+                                </td>
+                                <td class="text-end fw-bold text-success" th:text="${#numbers.formatCurrency(p.valorTotal)}"></td>
+                                <td class="text-center">
+                                    <div class="btn-group">
+                                        <a th:href="@{/societario/editar/{id}(id=${p.id})}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
+                                        <button class="btn btn-sm btn-outline-danger ms-1" 
+                                                data-bs-toggle="modal" 
+                                                th:data-bs-target="'#modalExcluir' + ${p.id}">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="modal fade" th:id="'modalExcluir' + ${p.id}" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-danger text-white">
+                                                    <h5 class="modal-title"><i class="bi bi-exclamation-triangle me-2"></i> Confirmar Exclusão</h5>
+                                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body text-start">
+                                                    Deseja realmente excluir o processo <strong><span th:text="${p.nomeProcesso}"></span></strong>?<br>
+                                                    <small class="text-danger mt-2 d-block">Esta ação não pode ser desfeita.</small>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <a th:href="@{/societario/excluir/{id}(id=${p.id})}" class="btn btn-danger px-4">Confirmar Exclusão</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Gráfico de Barras Simples (Contratos)
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // 1. EXTRAÇÃO DE DADOS DO BACK-END
+    // Utilizamos variáveis auxiliares para manter o JavaScript limpo e testável.
+    // O operador ?: garante que o sistema não quebre se o banco estiver vazio.
+    
+    var countAbertura  = /*[[${countAbertura ?: 0}]]*/ 0;
+    var countAlteracao = /*[[${countAlteracao ?: 0}]]*/ 0;
+    var countBaixa     = /*[[${countBaixa ?: 0}]]*/ 0;
+    
+    // Lista de faturamento e nomes dos meses reais vindos do Service
+    var faturamentoReal = /*[[${faturamentoMensal ?: {0,0,0,0,0,0}}]]*/ [0,0,0,0,0,0];
+    var mesesReais      = /*[[${mesesLabels ?: {'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN'}}]]*/ [];
+
+    // 2. CONFIGURAÇÃO DO GRÁFICO DE VOLUME (BARRAS)
     var optionsContratos = {
-        chart: { type: 'bar', height: 300, toolbar: {show: false} },
-        plotOptions: { bar: { borderRadius: 4, columnWidth: '45%' } },
+        chart: { type: 'bar', height: 250, toolbar: {show: false} },
+        plotOptions: { bar: { borderRadius: 6, columnWidth: '45%' } },
         colors: ['#4CAF50'],
-        series: [{ name: 'Contratos', data: [4, 3, 10, 9, 21, 15] }],
-        xaxis: { categories: ['Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'] }
+        series: [{ 
+            name: 'Processos', 
+            data: [countAbertura, countAlteracao, countBaixa] 
+        }],
+        xaxis: { 
+            categories: ['Abertura', 'Alteração', 'Baixa'],
+            labels: { style: { fontWeight: 600 } }
+        },
+        dataLabels: { enabled: true, style: { colors: ['#fff'] } },
+        tooltip: { theme: 'light' }
     };
 
-    // Gráfico Misto (Fluxo de Caixa)
+    // 3. CONFIGURAÇÃO DO GRÁFICO FINANCEIRO (ÁREA)
     var optionsFluxo = {
-        chart: { height: 300, type: 'line', toolbar: {show: false} },
-        stroke: { width: [0, 4], curve: 'smooth' },
-        colors: ['#008FFB', '#FEB019'],
-        series: [
-            { name: 'Entradas', type: 'column', data: [1.4, 2, 2.5, 1.5, 2.5, 2.8] },
-            { name: 'Projeção', type: 'line', data: [1.1, 3, 3.1, 4, 4.1, 4.9] }
-        ],
-        xaxis: { categories: ['Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'] },
-        yaxis: { title: { text: 'Valores (R$)' } }
+        chart: { type: 'area', height: 250, toolbar: {show: false} },
+        stroke: { curve: 'smooth', width: 3 },
+        colors: ['#2E93fA'],
+        fill: {
+            type: 'gradient',
+            gradient: { shadeIntensity: 1, opacityFrom: 0.4, opacityTo: 0.1 }
+        },
+        series: [{ 
+            name: 'Faturamento Bruto', 
+            data: faturamentoReal 
+        }],
+        xaxis: { 
+            categories: mesesReais, // Exibirá meses como 'AGO', 'SET', 'OUT'...
+            labels: { style: { fontWeight: 600 } }
+        },
+        yaxis: {
+            labels: {
+                formatter: function (value) {
+                    return "R$ " + value.toLocaleString('pt-BR');
+                }
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return "R$ " + val.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+                }
+            }
+        }
     };
 
-    // Renderização em IDs diferentes
-    new ApexCharts(document.querySelector("#chartContratos"), optionsContratos).render();
-    new ApexCharts(document.querySelector("#chartFluxo"), optionsFluxo).render();
+    // 4. RENDERIZAÇÃO SEGURA
+    // Verifica se os elementos existem na página antes de tentar renderizar.
+    if(document.querySelector("#chartContratos")) {
+        new ApexCharts(document.querySelector("#chartContratos"), optionsContratos).render();
+    }
+    
+    if(document.querySelector("#chartFluxo")) {
+        new ApexCharts(document.querySelector("#chartFluxo"), optionsFluxo).render();
+    }
+    /*]]>*/
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

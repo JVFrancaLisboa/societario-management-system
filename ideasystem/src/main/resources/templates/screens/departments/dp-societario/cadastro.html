@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Processo - IDEA Cont</title>
+    <title th:text="${societario.id == null ? 'Novo Cadastro - IDEA Cont' : 'Editar Processo - IDEA Cont'}"></title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" th:href="@{/css/departments/dp-societario/cadastro.css}">
 
     <style>
         .required::after { content: " *"; color: red; }
-        /* O Bootstrap já cuida do display das invalid-feedbacks quando o input tem .is-invalid */
+        .form-card { border-top: 5px solid #4CAF50; }
     </style>
 </head>
 <body>
@@ -21,21 +21,18 @@
         <div class="col-md-10 col-lg-8">
 
             <div class="header-cadastro mb-4 d-flex align-items-center gap-3">
-                <a th:href="@{/societario/dash}" class="btn btn-outline-secondary">
+                <a th:href="@{/societario/dash}" class="btn btn-outline-secondary shadow-sm">
                     <i class="bi bi-arrow-left"></i> Voltar ao Dashboard
                 </a>
-                <h2 class="m-0 text-dark">Cadastro de Novo Processo</h2>
+                <h2 class="m-0 text-dark fw-bold" 
+                    th:text="${societario.id == null ? 'Cadastro de Novo Processo' : 'Edição de Processo #' + societario.id}"></h2>
             </div>
             
             <div class="form-card shadow-sm p-4 bg-white rounded">
-                <div th:if="${mensagemErro}" class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <i class="bi bi-exclamation-octagon-fill me-2"></i>
-                    <span th:text="${mensagemErro}"></span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-
                 <form th:action="@{/societario/cadastro}" th:object="${societario}" method="post" novalidate>
                     
+                    <input type="hidden" th:field="*{id}">
+
                     <div class="row mb-3">
                         <div class="col-md-7">
                             <label for="processoName" class="form-label required">Processo</label>
@@ -118,11 +115,21 @@
                                    class="form-control" th:errorclass="is-invalid">
                             <div class="invalid-feedback" th:errors="*{email}"></div>
                         </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="dataCriacao" class="form-label fw-bold">Data do Processo (Opcional)</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+                                <input type="date" th:field="*{dataCriacao}" class="form-control" id="dataCriacao">
+                            </div>
+                            <div class="form-text">Deixe em branco para usar a data de hoje.</div>
+                        </div>
                     </div>
 
-                    <div class="d-flex justify-content-end mt-4">
-                        <button id="btn-salvar" type="submit" class="btn btn-success px-4">
-                            <i class="bi bi-floppy"></i> Salvar Cadastro
+                    <div class="d-flex justify-content-end mt-4 gap-2">
+                        <button id="btn-salvar" type="submit" 
+                                th:class="${societario.id == null ? 'btn btn-success px-4 fw-bold' : 'btn btn-primary px-4 fw-bold'}">
+                            <i th:class="${societario.id == null ? 'bi bi-plus-circle me-1' : 'bi bi-check-circle me-1'}"></i>
+                            <span th:text="${societario.id == null ? 'Salvar Cadastro' : 'Salvar Alterações'}"></span>
                         </button>
                     </div>
                 </form>

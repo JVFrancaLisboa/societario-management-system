@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -22,13 +24,6 @@ public class Societario {
     @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres.")
     @Column(nullable = false, length = 100)
     private String nomeProcesso;
-
-    @NotBlank(message = "O CNPJ/CPF é obrigatório.")
-    // Regex para validar os dois formatos (com pontos/traços conforme sua máscara)
-    @Pattern(regexp = "(^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$)|(^\\d{2}\\.\\d{2}\\.\\d{2}/\\d{4}-\\d{2}$)",
-            message = "Formato de documento inválido.")
-    @Column(nullable = false, length = 18)
-    private String cnpjCpf;
 
     @NotNull(message = "O tipo do processo deve ser selecionado.")
     @Enumerated(EnumType.STRING)
@@ -67,5 +62,31 @@ public class Societario {
     @Email(message = "Insira um endereço de e-mail válido.")
     @Column(nullable = false, length = 200)
     private String email;
+
+    @Column(name = "data_criacao")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataCriacao;
+
+    @NotBlank(message = "O CNPJ/CPF é obrigatório.")
+    // Excelência: Regex flexível que aceita com ou sem máscara
+    @Pattern(regexp = "(\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2})|(\\d{2}\\.?\\d{3}\\.?\\d{3}/?\\d{4}-?\\d{2})",
+            message = "Formato de documento inválido.")
+    @Column(nullable = false, length = 18)
+    private String cnpjCpf;
+
+    // Se o usuário não informar a data (migração), o sistema usa a data atual
+    @PrePersist
+    protected void onCreate() {
+        if (this.dataCriacao == null) {
+            this.dataCriacao = LocalDate.now();
+        }
+    }
+
+    // Setter Inteligente: Remove a máscara para o banco de dados ficar limpo (Apenas números)
+    public void setCnpjCpf(String cnpjCpf) {
+        if (cnpjCpf != null) {
+            this.cnpjCpf = cnpjCpf.replaceAll("\\D", "");
+        }
+    }
 
 }
