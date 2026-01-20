@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com</groupId>
-	<artifactId>ideasystem</artifactId>
+	<artifactId>societario-management-system</artifactId>
 	<version>0.1</version>
 	<name>ideasystem</name>
 	<description>Demo project for Spring Boot</description>
