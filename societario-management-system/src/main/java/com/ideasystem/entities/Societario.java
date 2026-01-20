@@ -68,7 +68,6 @@ public class Societario {
     private LocalDate dataCriacao;
 
     @NotBlank(message = "O CNPJ/CPF é obrigatório.")
-    // Excelência: Regex flexível que aceita com ou sem máscara
     @Pattern(regexp = "(\\d{3}\\.?\\d{3}\\.?\\d{3}-?\\d{2})|(\\d{2}\\.?\\d{3}\\.?\\d{3}/?\\d{4}-?\\d{2})",
             message = "Formato de documento inválido.")
     @Column(nullable = false, length = 18)
@@ -82,7 +81,7 @@ public class Societario {
         }
     }
 
-    // Setter Inteligente: Remove a máscara para o banco de dados ficar limpo (Apenas números)
+    //Remove a máscara para o banco de dados ficar limpo (Apenas números)
     public void setCnpjCpf(String cnpjCpf) {
         if (cnpjCpf != null) {
             this.cnpjCpf = cnpjCpf.replaceAll("\\D", "");

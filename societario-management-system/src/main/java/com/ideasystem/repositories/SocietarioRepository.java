@@ -14,9 +14,8 @@ public interface SocietarioRepository extends JpaRepository<Societario, Long> {
 
     List<Societario> findAllByOrderByIdDesc();
 
-    // Excelência: Contagens automáticas via Spring Data JPA
+    //Contagens automáticas via Spring Data JPA
     long countByTipo(TipoProcesso tipo);
-
     long countByFase(FaseProcesso fase);
 
     @Query("SELECT SUM(s.valorTotal) FROM Societario s")

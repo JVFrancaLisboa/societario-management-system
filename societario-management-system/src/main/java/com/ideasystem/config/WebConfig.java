@@ -22,10 +22,8 @@ public class WebConfig {
                 }
 
                 try {
-                    // Limpeza técnica para evitar o erro de escala (ex: 500 virar 50000)
                     String formatado = text.trim();
 
-                    // Se houver vírgula, tratamos como decimal brasileiro
                     if (formatado.contains(",")) {
                         formatado = formatado.replace(".", "").replace(",", ".");
                     }

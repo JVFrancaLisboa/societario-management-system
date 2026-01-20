@@ -1,7 +1,3 @@
-/**
- * cadastro.js - Versão de Excelência para IDEA Cont
- * Foco: Integridade de documentos e valores monetários.
- */
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
     const submitBtn = document.getElementById("btn-salvar");
@@ -54,8 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (allValid) {
             const valorInput = document.getElementById("valorTotal");
             if (valorInput) {
-                // EXCELÊNCIA: Remove apenas pontos de milhar. 
-                // Mantém a vírgula para o Java tratar. Ex: "1.500,00" -> "1500,00"
+                // Remove apenas pontos de milhar. 
+                // Mantém a vírgula pro o back tratar. Ex: "1.500,00" -> "1500,00"
                 valorInput.value = valorInput.value.replace(/\./g, '');
             }
             submitBtn.disabled = true;

@@ -45,7 +45,6 @@ public class SocietarioService {
 
     @Transactional
     public void deleteById(Long id) {
-        // Verificamos se existe antes de tentar deletar para evitar exceções de banco
         if (!societarioRepository.existsById(id)) {
             throw new RuntimeException("Não foi possível excluir: Processo não encontrado.");
         }
@@ -54,11 +53,10 @@ public class SocietarioService {
 
     /**
      * Calcula o faturamento total bruto de todos os processos.
-     * Excelência: Retorna ZERO caso não haja registros para evitar erros no Dashboard.
+     * Retorna ZERO caso não haja registros.
      */
     @Transactional(readOnly = true)
     public BigDecimal getTotalFaturamento() {
-        // Você deve adicionar: BigDecimal sumTotalValorTotal(); no seu Repository
         BigDecimal total = societarioRepository.sumTotalFaturamento();
         return (total != null) ? total : BigDecimal.ZERO;
     }
@@ -78,7 +76,6 @@ public class SocietarioService {
         return faturamento;
     }
 
-    // No SocietarioService.java
     public List<String> getLabelsUltimos6Meses() {
         List<String> labels = new ArrayList<>();
         LocalDate agora = LocalDate.now();

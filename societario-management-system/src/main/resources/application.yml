@@ -6,12 +6,18 @@ spring:
     url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/ideasystem?useTimezone=true&serverTimezone=UTC
     username: ${MYSQLUSER}
     password: ${MYSQLPASSWORD}
+
+  # Movido para fora de jpa:
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none # Excelente: agora o Flyway assume o controle
     properties:
       hibernate:
-    show-sql: false
-
+        format_sql: true
+    show-sql: true
     open-in-view: false
-    #spring.jpa.open-in-view

@@ -144,20 +144,16 @@
 </div>
 
 <script th:inline="javascript">
-    /*<![CDATA[*/
-    // 1. EXTRAÇÃO DE DADOS DO BACK-END
-    // Utilizamos variáveis auxiliares para manter o JavaScript limpo e testável.
-    // O operador ?: garante que o sistema não quebre se o banco estiver vazio.
     
-    var countAbertura  = /*[[${countAbertura ?: 0}]]*/ 0;
-    var countAlteracao = /*[[${countAlteracao ?: 0}]]*/ 0;
-    var countBaixa     = /*[[${countBaixa ?: 0}]]*/ 0;
+    var countAbertura  = 0;
+    var countAlteracao =  0;
+    var countBaixa = 0;
     
     // Lista de faturamento e nomes dos meses reais vindos do Service
-    var faturamentoReal = /*[[${faturamentoMensal ?: {0,0,0,0,0,0}}]]*/ [0,0,0,0,0,0];
-    var mesesReais      = /*[[${mesesLabels ?: {'JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN'}}]]*/ [];
+    var faturamentoReal = [0,0,0,0,0,0];
+    var mesesReais = [];
 
-    // 2. CONFIGURAÇÃO DO GRÁFICO DE VOLUME (BARRAS)
+    // CONFIGURAÇÃO DO GRÁFICO DE VOLUME (BARRAS)
     var optionsContratos = {
         chart: { type: 'bar', height: 250, toolbar: {show: false} },
         plotOptions: { bar: { borderRadius: 6, columnWidth: '45%' } },
@@ -174,7 +170,7 @@
         tooltip: { theme: 'light' }
     };
 
-    // 3. CONFIGURAÇÃO DO GRÁFICO FINANCEIRO (ÁREA)
+    // CONFIGURAÇÃO DO GRÁFICO FINANCEIRO (ÁREA)
     var optionsFluxo = {
         chart: { type: 'area', height: 250, toolbar: {show: false} },
         stroke: { curve: 'smooth', width: 3 },
@@ -207,7 +203,6 @@
         }
     };
 
-    // 4. RENDERIZAÇÃO SEGURA
     // Verifica se os elementos existem na página antes de tentar renderizar.
     if(document.querySelector("#chartContratos")) {
         new ApexCharts(document.querySelector("#chartContratos"), optionsContratos).render();
@@ -216,7 +211,6 @@
     if(document.querySelector("#chartFluxo")) {
         new ApexCharts(document.querySelector("#chartFluxo"), optionsFluxo).render();
     }
-    /*]]>*/
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
