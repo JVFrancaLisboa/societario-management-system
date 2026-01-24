@@ -1,4 +1,4 @@
-package com.ideasystem.entities.enums.societario;
+package josue.societario_management_system.entities.enums.societario;
 
 import lombok.Getter;
 

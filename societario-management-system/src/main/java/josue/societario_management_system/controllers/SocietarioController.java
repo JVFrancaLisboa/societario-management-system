@@ -1,8 +1,8 @@
-package com.ideasystem.controllers;
+package josue.societario_management_system.controllers;
 
-import com.ideasystem.entities.Societario;
-import com.ideasystem.services.SocietarioService;
 import jakarta.validation.Valid;
+import josue.societario_management_system.entities.Societario;
+import josue.societario_management_system.services.SocietarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

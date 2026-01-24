@@ -1,13 +1,14 @@
 spring:
   application:
-    name: ideasystem
+    name: societario-management-system
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/ideasystem?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/societario-management-system?useTimezone=true&serverTimezone=UTC
     username: ${MYSQLUSER}
     password: ${MYSQLPASSWORD}
 
-  # Movido para fora de jpa:
+  # CORREÇÃO: Identado sob 'spring' e nome corrigido
   flyway:
     enabled: true
     baseline-on-migrate: true
@@ -15,7 +16,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none # Excelente: agora o Flyway assume o controle
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true

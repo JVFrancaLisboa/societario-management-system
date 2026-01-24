@@ -1,8 +1,9 @@
-package com.ideasystem.repositories;
+package josue.societario_management_system.repositories;
 
-import com.ideasystem.entities.Societario;
-import com.ideasystem.entities.enums.societario.FaseProcesso;
-import com.ideasystem.entities.enums.societario.TipoProcesso;
+
+import josue.societario_management_system.entities.Societario;
+import josue.societario_management_system.entities.enums.societario.FaseProcesso;
+import josue.societario_management_system.entities.enums.societario.TipoProcesso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

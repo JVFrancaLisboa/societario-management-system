@@ -1,12 +1,13 @@
-package com.ideasystem.entities;
+package josue.societario_management_system.entities;
 
-import com.ideasystem.entities.enums.societario.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import josue.societario_management_system.entities.enums.societario.FaseProcesso;
+import josue.societario_management_system.entities.enums.societario.Honorario;
+import josue.societario_management_system.entities.enums.societario.StatusTaxa;
+import josue.societario_management_system.entities.enums.societario.TipoProcesso;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

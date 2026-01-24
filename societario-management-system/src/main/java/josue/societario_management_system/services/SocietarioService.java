@@ -1,9 +1,10 @@
-package com.ideasystem.services;
+package josue.societario_management_system.services;
 
-import com.ideasystem.entities.Societario;
-import com.ideasystem.entities.enums.societario.FaseProcesso;
-import com.ideasystem.entities.enums.societario.TipoProcesso;
-import com.ideasystem.repositories.SocietarioRepository;
+
+import josue.societario_management_system.entities.Societario;
+import josue.societario_management_system.entities.enums.societario.FaseProcesso;
+import josue.societario_management_system.entities.enums.societario.TipoProcesso;
+import josue.societario_management_system.repositories.SocietarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
